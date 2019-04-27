@@ -2,7 +2,42 @@
 title: "MP4"
 author: "Zoya Alam, Zoya Azhar, and Khulood Fahim"
 date: "4/26/2019"
-output: html_document
+output:
+    html_document:
+        code_folding: hide 
 ---
 
 
+Data  can  be accessed on Github[^1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[^1]: https://github.com/khfahim/Miniproject4Disney
