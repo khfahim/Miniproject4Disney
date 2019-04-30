@@ -52,13 +52,69 @@ emmawatson <- emmawatson %>%
 ```{r}
 emmawatson <- emmawatson %>%
   group_by(title, production_year) %>%
-  summarise(sumgross = sum(gross_4))
+  summarise(maxgross = max(gross_4)) %>%
+  arrange(desc(production_year)) 
 ```
 
-
 ```{r}
-emmawatson %>%
-  ggplot(aes(x = title, y = sumgross)) +
-  geom_line()
+emmaplot <- emmawatson %>%
+  ggplot(aes(x = title, y = maxgross)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.title.x = element_text()) +
+  scale_y_continuous (labels = scales::comma) + 
+  ggtitle("Max Gross Revenue of Emma Watson's Movies")+
+  labs(x = "Movie Title", 
+       y = "Highest Gross Revenue")
 ``` 
 
+```{r}
+lilyjames <- db %>%
+  dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
+FROM cast_info ci
+JOIN name n
+ON ci.person_id = n.id
+JOIN title t
+ON t.id = ci.movie_id
+LEFT JOIN movie_info mi 
+ON mi.movie_id = ci.movie_id
+WHERE n.id = '3291430'
+AND t.kind_id = 1
+AND mi.info_type_id = 107
+AND mi.info LIKE '%(USA)%';")
+```
+
+```{r}
+lilyjames <- lilyjames %>% 
+  collect()
+
+lilyjames <- lilyjames %>% 
+  separate(info, c('gross', 'date'), sep=" ")
+
+
+lilyjames <- 
+  lilyjames %>% 
+  mutate(gross_2 = gsub("\\$", "", gross)) %>%
+  mutate(gross_3 = gsub("\\,", "", gross_2))
+
+lilyjames <- lilyjames %>%
+  mutate(gross_4 = as.numeric(gross_3))
+```
+
+```{r}
+lilyjames <- lilyjames %>%
+  group_by(title, production_year) %>%
+  summarise(maxgross = max(gross_4)) %>%
+  arrange(desc(production_year)) 
+```
+
+```{r}
+lilyplot <- lilyjames %>%
+  ggplot(aes(x = title, y = maxgross)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  scale_y_continuous (labels = scales::comma) +
+  ggtitle("Max Gross Revenue of Lily James's Movies") +
+  labs(x = "Movie Title", 
+       y = "Highest Gross Revenue")
+``` 
