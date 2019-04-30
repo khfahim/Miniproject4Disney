@@ -10,9 +10,32 @@ output:
 
 Data  can  be accessed on Github[^1]
 
+```{r}
+library(tidyverse)
+library(RMySQL)
+db <- dbConnect(MySQL(), 
+                host = "scidb.smith.edu", 
+                user = "mth292", 
+                password = "RememberPi", 
+                dbname = "imdb")
+knitr::opts_chunk$set(connection = db, max.print = 20)
+```
 
+```{r}
+princess_movies <- ti
 
-
+```  
+  
+  
+```{r}
+SELECT t.id, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
+FROM title t
+JOIN movie_info  mi
+ON t.id= mi.movie_id
+WHERE title IN ('Snow White', 'The Little Mermaid', 'Aladdin', 'Beauty and the Beast',
+ 'Cinderella', 'Mulan', 'Sleeping Beauty', 'Pocahontas') AND info_type_id= 107 AND mi.id IN (2117948, 2120511, 2113802, 
+ 2063386, 2055452, 2159031, 2133626)
+```
 
 
 
