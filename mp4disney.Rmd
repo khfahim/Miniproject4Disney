@@ -27,17 +27,41 @@ FROM title t
 JOIN movie_info  mi
 ON t.id= mi.movie_id
 WHERE title IN ('Snow White', 'The Little Mermaid', 'Aladdin', 'Beauty and the Beast',
- 'Cinderella', 'Mulan', 'Sleeping Beauty', 'Pocahontas') AND info_type_id= 107 AND mi.id IN (2117948, 2120511, 2113802, 
- 2063386, 2055452, 2159031, 2133626);")
+ 'Cinderella', 'Mulan', 'Sleeping Beauty', 'Pocahontas') AND info_type_id= 107 AND mi.id IN (2120581, 2118010, 2159071, 
+ 2133632, 2063386, 2113820, 2055452);")
 
-gross_revenue <- c("34.1", "13.24", "109.86", "218.97",  "217.04", "141.58", "120.62")
+gross_revenue <- c("34.1", "13.24", "211.34", "424.97",  "504.05", "347.1", "116.3")
 
 disney_princesses_final <- cbind(disney_princesses, gross_revenue)
 
-
-ggplot(disney_princesses_final, aes(x= production_year, y= as.numeric(as.character(gross_revenue)), color= title)) + geom_point(size=  10) + labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market") +  theme_minimal()
+ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.character(gross_revenue)), color= title)) + geom_point(size=  10)+  labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market")+ theme_minimal()
 ```
 
+
+```{r include=FALSE}
+global_beautyandthebeast <- db %>% 
+  dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
+FROM title t
+JOIN movie_info  mi
+ON t.id= mi.movie_id
+WHERE title IN ('Beauty and the Beast') AND info_type_id= 107 AND production_year= 2017 AND  mi.id IN 
+(2679219, 2679265,2679352, 2679353, 2679354, 2679355, 2679356, 2679357, 2679363, 2679364, 2679365);")
+global_beautyandthebeast
+```
+
+```{r}
+gross_revenue_wbb <- c(504, 90.47, 36.3, 6.63, 41.5, 85.76, 4.15, 20.38, 110.46, 7.2, 657.5)
+country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "Italy", 
+             "Japan", "Netherlands", "Philippines")
+```
+
+
+```{r}
+global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
+global_beautyandthebeast_graph <- cbind(country, global_beautyandthebeast_graph)
+```
+
+```{r}
 
 ### 3: Khulood
 
