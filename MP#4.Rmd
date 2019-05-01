@@ -10,9 +10,39 @@ output:
 
 Data  can  be accessed on Github[^1]
 
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(dplyr)
+library(RMySQL)
+db <- dbConnect(MySQL(), 
+                host = "scidb.smith.edu", 
+                user = "mth292", 
+                password = "RememberPi", 
+                dbname = "imdb")
+knitr::opts_chunk$set(connection = db, max.print = 20)
+```
 
 
 
+```{r}
+disney_princesses <- db %>%
+  dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
+FROM title t
+JOIN movie_info  mi
+ON t.id= mi.movie_id
+WHERE title IN ('Snow White', 'The Little Mermaid', 'Aladdin', 'Beauty and the Beast',
+ 'Cinderella', 'Mulan', 'Sleeping Beauty', 'Pocahontas') AND info_type_id= 107 AND mi.id IN (2117948, 2120511, 2113802, 
+ 2063386, 2055452, 2159031, 2133626);")
+
+gross_revenue <- c("34.1", "13.24", "109.86", "218.97",  "217.04", "141.58", "120.62")
+
+disney_princesses_final <- cbind(disney_princesses, gross_revenue)
+
+disney_princesses_final
+
+
+ggplot(disney_princesses_final, aes(x= production_year, y= as.numeric(as.character(gross_revenue)), color= title)) + geom_point(size=  10) + labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market") + theme_fivethirtyeight() 
+```
 
 
 
