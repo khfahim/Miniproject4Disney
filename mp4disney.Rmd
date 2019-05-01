@@ -1,13 +1,16 @@
 ---
-title: "mp4disney"
-author: "Khulood Fahim"
+title: "Disney Mini  Project"
+author: "Khulood Fahim, Zoya Azhar, and Zoya Alam"
 date: "4/26/2019"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
-
-```{r}
+Access our  data from github  [^1]
+```{r message= FALSE, warning=FALSE}
 library(tidyverse)
 library(RMySQL)
+library(ggthemes)
 db <- dbConnect(MySQL(), 
                 host = "scidb.smith.edu", 
                 user = "mth292", 
@@ -31,10 +34,8 @@ gross_revenue <- c("34.1", "13.24", "109.86", "218.97",  "217.04", "141.58", "12
 
 disney_princesses_final <- cbind(disney_princesses, gross_revenue)
 
-disney_princesses_final
 
-
-ggplot(disney_princesses_final, aes(x= production_year, y= as.numeric(as.character(gross_revenue)), color= title)) + geom_point(size=  10) + labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market") + theme_fivethirtyeight() 
+ggplot(disney_princesses_final, aes(x= production_year, y= as.numeric(as.character(gross_revenue)), color= title)) + geom_point(size=  10) + labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market") +  theme_minimal()
 ```
 
 
@@ -56,7 +57,7 @@ AND mi.info_type_id = 107
 AND mi.info LIKE '%(USA)%';")
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 emmawatson <- emmawatson %>% 
   collect()
 
@@ -74,7 +75,7 @@ emmawatson <- emmawatson %>%
 
 ```
 
-```{r}
+```{r  warning=FALSE}
 emmawatson <- emmawatson %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
@@ -91,9 +92,10 @@ emmaplot <- emmawatson %>%
   ggtitle("Max Gross Revenue of Emma Watson's Movies")+
   labs(x = "Movie Title", 
        y = "Highest Gross Revenue")
+emmaplot
 ``` 
 
-```{r}
+```{r message= FALSE,warning=FALSE}
 lilyjames <- db %>%
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
 FROM cast_info ci
@@ -109,7 +111,7 @@ AND mi.info_type_id = 107
 AND mi.info LIKE '%(USA)%';")
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 lilyjames <- lilyjames %>% 
   collect()
 
@@ -126,14 +128,14 @@ lilyjames <- lilyjames %>%
   mutate(gross_4 = as.numeric(gross_3))
 ```
 
-```{r}
+```{r  message=FALSE,warning=FALSE}
 lilyjames <- lilyjames %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
   arrange(desc(production_year)) 
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 lilyplot <- lilyjames %>%
   ggplot(aes(x = title, y = maxgross)) +
   geom_col() +
@@ -142,4 +144,8 @@ lilyplot <- lilyjames %>%
   ggtitle("Max Gross Revenue of Lily James's Movies") +
   labs(x = "Movie Title", 
        y = "Highest Gross Revenue")
+lilyplot
 ``` 
+
+
+[^1]: https://github.com/khfahim/Miniproject4Disney 
