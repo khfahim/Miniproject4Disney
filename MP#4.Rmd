@@ -7,7 +7,6 @@ output:
         code_folding: hide 
 ---
 
-
 Data  can  be accessed on Github[^1]
 
 ```{r message=FALSE, warning=FALSE}
