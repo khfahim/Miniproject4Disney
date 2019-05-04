@@ -1,27 +1,25 @@
 ---
-title: "MP4"
-author: "Zoya Alam, Zoya Azhar, and Khulood Fahim"
+title: "Disney Fans Can't Get Enough of Red Roses and Glass Slippers"
+author: "Khulood Fahim, Zoya Azhar, and Zoya Alam"
 date: "4/26/2019"
-output:
-    html_document:
-        code_folding: hide 
+output: 
+  html_document:
+    code_folding: hide
 ---
 
-Data  can  be accessed on Github[^1]
-
-```{r message=FALSE, warning=FALSE}
+Access our  data from github  [^1]
+```{r message= FALSE, warning=FALSE}
 library(tidyverse)
-library(dplyr)
 library(RMySQL)
+library(ggthemes)
 db <- dbConnect(MySQL(), 
                 host = "scidb.smith.edu", 
                 user = "mth292", 
                 password = "RememberPi", 
                 dbname = "imdb")
-knitr::opts_chunk$set(connection = db, max.print = 20)
 ```
 
-
+### 1: Zoya Alam 
 
 ```{r}
 disney_princesses <- db %>%
@@ -30,17 +28,38 @@ FROM title t
 JOIN movie_info  mi
 ON t.id= mi.movie_id
 WHERE title IN ('Snow White', 'The Little Mermaid', 'Aladdin', 'Beauty and the Beast',
- 'Cinderella', 'Mulan', 'Sleeping Beauty', 'Pocahontas') AND info_type_id= 107 AND mi.id IN (2117948, 2120511, 2113802, 
- 2063386, 2055452, 2159031, 2133626);")
+ 'Cinderella', 'Mulan', 'Sleeping Beauty', 'Pocahontas') AND info_type_id= 107 AND mi.id IN (2120581, 2118010, 2159071, 
+ 2133632, 2063386, 2113820, 2055452);")
 
-gross_revenue <- c("34.1", "13.24", "109.86", "218.97",  "217.04", "141.58", "120.62")
+gross_revenue <- c("34.1", "13.24", "211.34", "424.97",  "504.05", "347.1", "116.3")
 
 disney_princesses_final <- cbind(disney_princesses, gross_revenue)
 
-disney_princesses_final
+ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.character(gross_revenue)), color= title)) + geom_point(size=  10)+  labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market")+ theme_minimal()
+```
 
 
-ggplot(disney_princesses_final, aes(x= production_year, y= as.numeric(as.character(gross_revenue)), color= title)) + geom_point(size=  10) + labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market") + theme_fivethirtyeight() 
+```{r include=FALSE}
+global_beautyandthebeast <- db %>% 
+  dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
+FROM title t
+JOIN movie_info  mi
+ON t.id= mi.movie_id
+WHERE title IN ('Beauty and the Beast') AND info_type_id= 107 AND production_year= 2017 AND  mi.id IN 
+(2679219, 2679265,2679352, 2679353, 2679354, 2679355, 2679356, 2679357, 2679363, 2679364, 2679365);")
+global_beautyandthebeast
+```
+
+```{r}
+gross_revenue_wbb <- c(504, 90.47, 36.3, 6.63, 41.5, 85.76, 4.15, 20.38, 110.46, 7.2, 657.5)
+country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "Italy", 
+             "Japan", "Netherlands", "Philippines")
+```
+
+
+```{r}
+global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
+global_beautyandthebeast_graph <- cbind(country, global_beautyandthebeast_graph)
 ```
 
 ```{r}
@@ -150,29 +169,154 @@ lilyplot
 ``` 
 
 
+### 2: Zoya Azhar
+```{r datawrangle_graph3, message=FALSE, warning=FALSE}
+gross_revenue <- db %>% dbGetQuery("
+SELECT mi.id AS identity, info, title, production_year
+FROM movie_info mi
+JOIN title t
+ON t.id = mi.movie_id
+WHERE kind_id = 1
+AND mi.info_type_id = 107 #this gives us gross revenue
+AND t.title IN ('Beauty and the Beast', 'Cinderella')
+AND mi.id IN (2679219,2117948,2572174, 2055452);")
+
+```
+
+```{r graph3, message=FALSE, warning=FALSE}
+gross_revenue <- gross_revenue %>%
+  collect()
+
+gross_revenue <- gross_revenue %>%
+  separate(info, c('gross'), sep=" ")
+
+#gross_revenue <- gross_revenue %>%
+  #mutate(gross_1 = gsub("\\$", "", gross)) %>%
+  #mutate(gross_2 = gsub("\\,", "", gross_1)) %>%
+  #mutate(gross_3 = as.numeric(gross_2))
+
+revenue_values <- c("341,011,49", "200,849,342", "218,967,620", "504,014,165")
+titles <- c("Cinderella (1950)","Cinderella (2015)", "Beauty and the Beast (1991)", "Beauty and the Beast (2017)")
+
+casestudy <- cbind(gross_revenue, revenue_values)
+casestudy_1 <- cbind(casestudy, titles)
+
+graph2 <- casestudy_1 %>%
+  ggplot(aes(x = titles, y = revenue_values)) +
+  geom_col( width = 0.5) +
+  labs(x= "Movie Title", y= "Gross Revenue (in millions of $)")
+       
+graph2 
+```
 
 
+### 3: Khulood
+
+```{r}
+emmawatson <- db %>% 
+  dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
+FROM cast_info ci
+JOIN name n
+ON ci.person_id = n.id
+JOIN title t
+ON t.id = ci.movie_id
+LEFT JOIN movie_info mi 
+ON mi.movie_id = ci.movie_id
+WHERE n.id = '4080909'
+AND t.kind_id = 1
+AND mi.info_type_id = 107
+AND mi.info LIKE '%(USA)%';")
+```
+
+```{r message=FALSE, warning=FALSE}
+emmawatson <- emmawatson %>% 
+  collect()
+
+emmawatson <- emmawatson %>% 
+  separate(info, c('gross', 'date'), sep=" ")
 
 
+emmawatson <- 
+  emmawatson %>% 
+  mutate(gross_2 = gsub("\\$", "", gross)) %>%
+  mutate(gross_3 = gsub("\\,", "", gross_2))
+
+emmawatson <- emmawatson %>%
+  mutate(gross_4 = as.numeric(gross_3))
+
+```
+
+```{r  warning=FALSE}
+emmawatson <- emmawatson %>%
+  group_by(title, production_year) %>%
+  summarise(maxgross = max(gross_4)) %>%
+  arrange(desc(production_year)) 
+```
+
+```{r}
+emmaplot <- emmawatson %>%
+  ggplot(aes(x = title, y = maxgross)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90),
+        axis.title.x = element_text()) +
+  scale_y_continuous (labels = scales::comma) + 
+  ggtitle("Max Gross Revenue of Emma Watson's Movies")+
+  labs(x = "Movie Title", 
+       y = "Highest Gross Revenue")
+emmaplot
+``` 
+
+```{r message= FALSE,warning=FALSE}
+lilyjames <- db %>%
+  dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
+FROM cast_info ci
+JOIN name n
+ON ci.person_id = n.id
+JOIN title t
+ON t.id = ci.movie_id
+LEFT JOIN movie_info mi 
+ON mi.movie_id = ci.movie_id
+WHERE n.id = '3291430'
+AND t.kind_id = 1
+AND mi.info_type_id = 107
+AND mi.info LIKE '%(USA)%';")
+```
+
+```{r message=FALSE, warning=FALSE}
+lilyjames <- lilyjames %>% 
+  collect()
+
+lilyjames <- lilyjames %>% 
+  separate(info, c('gross', 'date'), sep=" ")
 
 
+lilyjames <- 
+  lilyjames %>% 
+  mutate(gross_2 = gsub("\\$", "", gross)) %>%
+  mutate(gross_3 = gsub("\\,", "", gross_2))
+
+lilyjames <- lilyjames %>%
+  mutate(gross_4 = as.numeric(gross_3))
+```
+
+```{r  message=FALSE,warning=FALSE}
+lilyjames <- lilyjames %>%
+  group_by(title, production_year) %>%
+  summarise(maxgross = max(gross_4)) %>%
+  arrange(desc(production_year)) 
+```
+
+```{r message=FALSE, warning=FALSE}
+lilyplot <- lilyjames %>%
+  ggplot(aes(x = title, y = maxgross)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  scale_y_continuous (labels = scales::comma) +
+  ggtitle("Max Gross Revenue of Lily James's Movies") +
+  labs(x = "Movie Title", 
+       y = "Highest Gross Revenue")
+lilyplot
+``` 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[^1]: https://github.com/khfahim/Miniproject4Disney
+[^1]: https://github.com/khfahim/Miniproject4Disney 
