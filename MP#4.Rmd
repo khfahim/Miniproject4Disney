@@ -5,9 +5,24 @@ date: "4/26/2019"
 output: 
   html_document:
     code_folding: hide
+    fig.align : center
 ---
 
 Access our  data from github  [^1]
+
+<style>
+body {
+  background-image: url("https://wallpaperplay.com/walls/full/1/5/7/101658.jpg#.XM5ePY4CXqA.link");
+}
+
+h1, h2, h3, h4 {
+font-family: AppleMyungjo;
+}
+</style>
+
+
+![](https://media.giphy.com/media/42ZPYptEGgxaM/giphy.gif)
+
 ```{r message= FALSE, warning=FALSE}
 library(tidyverse)
 library(RMySQL)
@@ -17,7 +32,11 @@ db <- dbConnect(MySQL(),
                 user = "mth292", 
                 password = "RememberPi", 
                 dbname = "imdb")
+
+library(extrafont)
+font_import()
 ```
+
 
 ### 1: Zoya Alam 
 
@@ -262,7 +281,7 @@ emmaplot <- emmawatson %>%
   scale_y_continuous (labels = scales::comma) + 
   ggtitle("Max Gross Revenue of Emma Watson's Movies")+
   labs(x = "Movie Title", 
-       y = "Highest Gross Revenue")
+       y = "Highest Gross Revenue") 
 emmaplot
 ``` 
 
@@ -314,9 +333,16 @@ lilyplot <- lilyjames %>%
   scale_y_continuous (labels = scales::comma) +
   ggtitle("Max Gross Revenue of Lily James's Movies") +
   labs(x = "Movie Title", 
-       y = "Highest Gross Revenue")
+       y = "Highest Gross Revenue") 
+  
 lilyplot
 ``` 
+
+<center>
+
+![](https://media.giphy.com/media/TR3abToJDTBII/giphy.gif)
+
+<\center>
 
 
 [^1]: https://github.com/khfahim/Miniproject4Disney 
