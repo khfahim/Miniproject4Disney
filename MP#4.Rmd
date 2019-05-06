@@ -1,5 +1,5 @@
 ---
-title: "Disney Fans Can't Get Enough of Red Roses and Glass Slippers"
+title: "Disney Fans Cannot Get Enough of Red Roses and Glass Slippers"
 author: "Khulood Fahim, Zoya Azhar, and Zoya Alam"
 date: "4/26/2019"
 output: 
