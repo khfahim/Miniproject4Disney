@@ -217,22 +217,27 @@ AND mi.id IN (2679219,2117948,2572174, 2055452);")
 ```{r graph3, warning= FALSE, message=FALSE}
 
 # Create dataframe
+
 gross_revenue <- gross_revenue %>%
   collect()
 
 # Edit values for plotting
+
 gross_revenue <- gross_revenue %>%
   separate(info, c('gross'), sep=" ")
 
 # Create lists to make plotting easier
+
 revenue_values <- c("34.101", "200.849", "218.967", "504.014")
 titles <- c("Cinderella (1950)","Cinderella (2015)", "Beauty and the Beast (1991)", "Beauty and the Beast (2017)")
 
 # Add lists to existing dataframe and create new df's
+
 casestudy <- cbind(gross_revenue, revenue_values)
 casestudy_1 <- cbind(casestudy, titles)
 
 # Plot graph
+
 graph2 <- casestudy_1 %>%
   ggplot(aes(x = titles, y = as.numeric(as.character(revenue_values)))) +
   geom_col(width = 0.5) +
