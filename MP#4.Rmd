@@ -28,7 +28,9 @@ font-family: AppleMyungjo;
 
 
 ```{r message= FALSE, warning=FALSE, comment=FALSE}
-## load necessary packages
+
+# Load necessary packages
+
 library(tidyverse)
 library(RMySQL)
 library(ggthemes)
@@ -88,8 +90,10 @@ font_import()
 
 
 
-```{r}
-## retrieve SQL query
+```{r warning= FALSE, message=FALSE}
+
+# Retrieve SQL query
+
 disney_princesses <- db %>%
   dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
 FROM title t
@@ -100,16 +104,19 @@ WHERE title IN ('The Little Mermaid', 'Aladdin', 'Beauty and the Beast',
  2133632, 2063386, 2113820, 2055452);") %>%
   collect()
 
-## bind gross revenue information to dataset after dividing nominal gross values by one million
+# Bind gross revenue information to dataset after dividing nominal gross values by one million
+
 gross_revenue <- c("34.1", "13.24", "211.34", "424.97",  "504.05", "347.1", "116.3")
 
 disney_princesses_final <- cbind(disney_princesses, gross_revenue)
 
-## manually create legend
+# Manually create legend
+
 legend <- c("The Little Mermaid"= "#BA1A36", "Aladdin"= "#6BAFC5", "Beauty and the Beast"= "#FDE037", "Mulan"= "#55854B", "Pocahontas"= "#D25D70", "Sleeping Beauty"= "#E1048A", 
 "Cinderella"= "#94A8E7")
 
-## create scatterplot
+# Create scatterplot
+
 ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.character(gross_revenue)), color= title)) + 
     scale_color_manual(values = legend)+
   geom_point(size=  10)+ 
@@ -124,8 +131,9 @@ ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.characte
 ```
 
 
-```{r  fig.show= 'hold', out.width= '50%'}
-## insert Princess Tiana and Merida images and plot side by side
+
+```{r  fig.show= 'hold', out.width= '50%',warning= FALSE, message=FALSE}
+# Insert Princess Tiana and Merida images and plot side by side
 p1 <- ggdraw()+ draw_image("https://i.pinimg.com/originals/f5/a1/f2/f5a1f21e2ac0289fb764d142a1b01441.gif")
  
 p1
@@ -139,7 +147,7 @@ p2
 
 
 ```{r warning= FALSE, message=FALSE}
-## manually create data table with information about recent disney princess movies
+# Manually create data table with information about recent disney princess movies
 
 new_dp_table <- data.table(Movie= c("The Princess and the Frog", "Brave"), 
   Year= c("2009", "2012"), 
@@ -150,7 +158,7 @@ new_dp_table %>%
 
 
 
-```{r include=FALSE}
+```{r include=FALSE, warning= FALSE, message=FALSE}
 global_beautyandthebeast <- db %>% 
   dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
 FROM title t
@@ -162,21 +170,22 @@ WHERE title IN ('Beauty and the Beast') AND info_type_id= 107 AND production_yea
 global_beautyandthebeast
 ```
 
-```{r}
+
+```{r warning= FALSE, message=FALSE}
 gross_revenue_wbb <- c(504, 90.47, 36.3, 6.63, 41.5, 85.76, 4.15, 20.38, 110.46, 7.2, 657.5)
 country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "Italy", 
              "Japan", "Netherlands", "Philippines")
 ```
 
 
-```{r}
-## create data table for map
+```{r warning= FALSE, message=FALSE}
+# Create data table for map
 global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
 global_beautyandthebeast_graph <- cbind(country, global_beautyandthebeast_graph)
 global_beautyandthebeast_graph
 ```
 
-```{r}
+```{r warning= FALSE, message=FALSE}
 world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
   sf::st_as_sf() %>%
   sf::st_transform(4326)
@@ -185,7 +194,12 @@ world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
 
 
 ### 2: Zoya Azhar
-```{r datawrangle_graph3, message=FALSE, warning=FALSE}
+```{r datawrangle_graph3, warning= FALSE, message=FALSE}
+
+# SQL code imported into R
+
+# Query to get gross revenues for our two case studies
+
 gross_revenue <- db %>% dbGetQuery("
 SELECT mi.id AS identity, info, title, production_year
 FROM movie_info mi
@@ -196,28 +210,29 @@ AND mi.info_type_id = 107 #this gives us gross revenue
 AND t.title IN ('Beauty and the Beast', 'Cinderella')
 AND mi.id IN (2679219,2117948,2572174, 2055452);")
 
-
-#comment
 ```
 
-```{r graph3, message=FALSE, warning=FALSE}
+
+
+```{r graph3, warning= FALSE, message=FALSE}
+
+# Create dataframe
 gross_revenue <- gross_revenue %>%
   collect()
 
+# Edit values for plotting
 gross_revenue <- gross_revenue %>%
   separate(info, c('gross'), sep=" ")
 
-#gross_revenue <- gross_revenue %>%
-  #mutate(gross_1 = gsub("\\$", "", gross)) %>%
-  #mutate(gross_2 = gsub("\\,", "", gross_1)) %>%
-  #mutate(gross_3 = as.numeric(gross_2))
-
+# Create lists to make plotting easier
 revenue_values <- c("34.101", "200.849", "218.967", "504.014")
 titles <- c("Cinderella (1950)","Cinderella (2015)", "Beauty and the Beast (1991)", "Beauty and the Beast (2017)")
 
+# Add lists to existing dataframe and create new df's
 casestudy <- cbind(gross_revenue, revenue_values)
 casestudy_1 <- cbind(casestudy, titles)
 
+# Plot graph
 graph2 <- casestudy_1 %>%
   ggplot(aes(x = titles, y = as.numeric(as.character(revenue_values)))) +
   geom_col(width = 0.5) +
@@ -226,14 +241,13 @@ graph2 <- casestudy_1 %>%
         axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10))
 
-       
 graph2 
 ```
 
 
 ### 3: Khulood
 
-```{r}
+```{r warning= FALSE, message=FALSE}
 emmawatson <- db %>% 
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
 FROM cast_info ci
@@ -249,7 +263,7 @@ AND mi.info_type_id = 107
 AND mi.info LIKE '%(USA)%';")
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r warning= FALSE, message=FALSE}
 emmawatson <- emmawatson %>% 
   collect()
 
@@ -267,7 +281,7 @@ emmawatson <- emmawatson %>%
 
 ```
 
-```{r  warning=FALSE}
+```{r  warning= FALSE, message=FALSE}
 emmawatson <- emmawatson %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
@@ -276,7 +290,7 @@ emmawatson <- emmawatson %>%
   
 ```
 
-```{r}
+```{r warning= FALSE, message=FALSE}
 emmaplot <- emmawatson %>%
   ggplot(aes(x = title, y = maxgross/1000000)) +
   geom_col() +
@@ -292,7 +306,7 @@ emmaplot <- emmawatson %>%
 emmaplot
 ``` 
 
-```{r message= FALSE,warning=FALSE}
+```{r warning= FALSE, message=FALSE}
 lilyjames <- db %>%
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
 FROM cast_info ci
@@ -308,7 +322,7 @@ AND mi.info_type_id = 107
 AND mi.info LIKE '%(USA)%';")
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r warning= FALSE, message=FALSE}
 lilyjames <- lilyjames %>% 
   collect()
 
@@ -325,14 +339,14 @@ lilyjames <- lilyjames %>%
   mutate(gross_4 = as.numeric(gross_3))
 ```
 
-```{r  message=FALSE,warning=FALSE}
+```{r  warning= FALSE, message=FALSE}
 lilyjames <- lilyjames %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
   arrange(desc(production_year)) 
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r warning= FALSE, message=FALSE}
 lilyplot <- lilyjames %>%
   ggplot(aes(x = title, y = maxgross/1000000)) +
   geom_col() +
