@@ -220,7 +220,6 @@ graph2 <- casestudy_1 %>%
         axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10))
 
-       
 graph2 
 ```
 
