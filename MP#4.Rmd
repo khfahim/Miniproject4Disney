@@ -75,6 +75,8 @@ AND mi.info_type_id = 107 #this gives us gross revenue
 AND t.title IN ('Beauty and the Beast', 'Cinderella')
 AND mi.id IN (2679219,2117948,2572174, 2055452);")
 
+
+#comment
 ```
 
 ```{r graph3, message=FALSE, warning=FALSE}
