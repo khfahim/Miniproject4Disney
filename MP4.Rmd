@@ -348,7 +348,7 @@ emmaplot <- emmawatson %>%
   ggplot(aes(x = title, y = maxgross/1000000, fill= title)) +
       scale_fill_manual(values = legend_3)+ 
   geom_col() +
-    labs(title="Max Gross Revenue of Emma Watson's Movies", y = "Gross Revenue (in millions of $)") + 
+    labs(title="Emma Watson's Movie Performance", y = "Gross Revenue (in millions of $)") + 
   theme(axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
         plot.background = element_rect(fill = "#E9DBF4")) +
@@ -417,7 +417,7 @@ lilyplot <- lilyjames %>%
         axis.text.y = element_text(size = 10),
          plot.background = element_rect(fill = "#E9DBF4")) +
   scale_y_continuous (labels = scales::comma) +
-  ggtitle("Max Gross Revenue of Lily James's Movies") +
+  ggtitle("Lily James's Movie Performance") +
   labs(y = "Gross Revenue (in millions of $)") +
       theme (axis.title.x = element_text(family = "Century Gothic", size = 12),
         axis.text.y = element_text(family = "Century Gothic", size = 12), 
