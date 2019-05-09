@@ -14,8 +14,8 @@ output:
 Access our  data from github  [^1]
 
 <style>
-body {
-  background-image: url("https://www.xmple.com/wallpaper/violet-single-solid-color-one-colour-plain-1920x1080-c-e9dbf3-f-24.svg");}
+body {}
+
 h1, h2, h3, h4 {
 font-family: AppleMyungjo;
 }
@@ -26,11 +26,11 @@ font-family: AppleMyungjo;
 
 
 
-
 ```{r message= FALSE, warning=FALSE, comment=FALSE}
 
 # Load necessary packages
-
+library(formattable)
+library(tidyr)
 library(tidyverse)
 library(RMySQL)
 library(ggthemes)
@@ -58,32 +58,33 @@ library(magick)
 
 ```
 
+```{r  fig.show= 'hold', out.width= '50%',warning= FALSE, message=FALSE}
+# insert Aladdin  originaland remake  images and plot side by side
+p1 <- ggdraw()+ draw_image("https://usercontent1.hubstatic.com/8321508_f520.jpg")
+ 
+p1
 
-![](https://upload.wikimedia.org/wikipedia/en/9/9a/Aladdin_%28Official_2019_Film_Poster%29.png)
+p2<- ggdraw() + draw_image("https://upload.wikimedia.org/wikipedia/en/9/9a/Aladdin_%28Official_2019_Film_Poster%29.png")
 
+p2
+```
 
-
-
-
-
-
-![](https://media0.giphy.com/media/tGGqomlwZyI1i/giphy.gif?cid=790b76115cd3218565636b4b323a8ce7&rid=giphy.gif)
-
-
-**Beauty and the Beast 1991**
-
-![](https://media1.giphy.com/media/l0HlMbaqMnb09XZBu/giphy.gif?cid=790b76115cd3228a5631373541bfe332&rid=giphy.gif)
-
-**Beauty and the Beast 2017**
+**Aladdin 1992 (left), Aladdin 2019 (right)**
 
 
-![](https://media1.giphy.com/media/RLVHPJJv7jY1q/giphy.gif?cid=790b76115cd323c34a686e6a4d1674cc&rid=giphy.gif)
-**Cinderella 1950**
-
-![](https://media3.giphy.com/media/lW54ePLsorvgY/giphy.gif?cid=790b76115cd323da7344694473d83b93&rid=giphy.gif)
+![**Beauty and the Beast 1991**](https://media0.giphy.com/media/tGGqomlwZyI1i/giphy.gif?cid=790b76115cd3218565636b4b323a8ce7&rid=giphy.gif)
 
 
-**Cinderella 2015**
+![**Beauty and the Beast 2017**](https://media1.giphy.com/media/l0HlMbaqMnb09XZBu/giphy.gif?cid=790b76115cd3228a5631373541bfe332&rid=giphy.gif)
+
+
+
+![**Cinderella 1950**](https://media1.giphy.com/media/RLVHPJJv7jY1q/giphy.gif?cid=790b76115cd323c34a686e6a4d1674cc&rid=giphy.gif)
+
+![**Cinderella 2015**](https://media3.giphy.com/media/lW54ePLsorvgY/giphy.gif?cid=790b76115cd323da7344694473d83b93&rid=giphy.gif)
+
+
+
 
 
 ![](http://clipart-library.com/img1/833428.png)
@@ -105,7 +106,7 @@ library(magick)
 
 ```{r warning= FALSE, message=FALSE}
 
-# Retrieve SQL query
+# retrieve SQL query
 
 disney_princesses <- db %>%
   dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
@@ -117,7 +118,7 @@ WHERE title IN ('The Little Mermaid', 'Aladdin', 'Beauty and the Beast',
  2133632, 2063386, 2113820, 2055452);") %>%
   collect()
 
-# Bind gross revenue information to dataset after dividing nominal gross values by one million
+# bind gross revenue information to dataset after dividing nominal gross values by one million
 
 gross_revenue <- c("34.1", "13.24", "211.34", "424.97",  "504.05", "347.1", "116.3")
 
@@ -128,7 +129,7 @@ disney_princesses_final <- cbind(disney_princesses, gross_revenue)
 legend <- c("The Little Mermaid"= "#BA1A36", "Aladdin"= "#6BAFC5", "Beauty and the Beast"= "#FDE037", "Mulan"= "#55854B", "Pocahontas"= "#D25D70", "Sleeping Beauty"= "#E1048A", 
 "Cinderella"= "#94A8E7")
 
-# Create scatterplot
+# create scatterplot
 
 ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.character(gross_revenue)), color= title)) + 
     scale_color_manual(values = legend)+
@@ -163,18 +164,19 @@ p2<- ggdraw() + draw_image("http://clipart-library.com/data_images/192401.gif")
 p2
 ```
 
- *Princess Tiana and  Merida*
+ *Princess Tiana (left) and  Merida (right)*
 
 
 
 ```{r warning= FALSE, message=FALSE}
-# Manually create data table with information about recent disney princess movies
+## manually create data table with information about recent disney princess movies
 
 new_dp_table <- data.table(Movie= c("The Princess and the Frog", "Brave"), 
   Year= c("2009", "2012"), 
-  Gross= c("$104.4 M", "$237.3 M"))
-new_dp_table %>%
-  rename("Year"= Year)
+  Gross= c("$104.4 million", "$237.3 million"))
+
+formattable(new_dp_table)
+
 ```
 
 
@@ -199,42 +201,46 @@ global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebe
 global_beautyandthebeast_graph <- cbind(global_beautyandthebeast_graph, country)
 ```
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=5}
+##  create sf object of world  data in order to make world  map
 world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
   sf::st_as_sf() %>%
   sf::st_transform(4326) %>%
   rename("country"= ID)
-```
 
-```{r echo=TRUE}
+## merge world map data and beauty and the beast graph data for map
 bb_wm  <- right_join(global_beautyandthebeast_graph, world, by= "country")
 
-
+##  create world map
 bb_wm %>%
   ggplot()+ 
   geom_sf(aes(fill= gross_revenue_wbb))+
-  scale_fill_gradient(low= "pink", high= "purple")+ 
-  theme_map()+
+  scale_fill_gradient(low= "pink", high= "purple")+
+  theme_map()+ 
   labs(title = "Global Distribution of 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
   theme(plot.title = element_text(family = "Century Gothic", size= 8), 
         legend.title = element_text(family = "Century Gothic", size = 8), 
         legend.text = element_text(family = "Century Gothic", size = 8))+ 
-    theme(plot.background = element_rect(fill = "#E9DBF4"), 
+    theme(plot.background = element_rect(fill = "#E9DBF4", color = NA),
+          panel.background = element_rect(fill = "#E9DBF4", color = NA),
           panel.grid.major = element_line("#E9DBF4"))
+```
+
+```{r fig.width=5,  fig.height=8}
+##create map for Philippines
 
 bb_wm %>%
 filter(country== "Philippines") %>%
-   ggplot()+ 
+   ggplot(size= 2)+ 
   geom_sf(aes(fill= gross_revenue_wbb))+
   scale_fill_gradient(low= "purple", high= "purple")+ 
   theme_map()+
   labs(title = "Philippines 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
-  theme(plot.title = element_text(family = "Century Gothic", size= 8), 
+  theme(plot.title = element_text(family = "Century Gothic", size= 14), 
         legend.title = element_text(family = "Century Gothic", size = 8), 
         legend.text = element_text(family = "Century Gothic", size = 8))+ 
     theme(plot.background = element_rect(fill = "#E9DBF4"), 
           panel.grid.major = element_line("#E9DBF4"))
-
 ```
 
 
@@ -262,7 +268,7 @@ AND mi.id IN (2679219,2117948,2572174, 2055452);")
 
 ```{r graph3, warning= FALSE, message=FALSE}
 
-# Create dataframe
+# create dataframe
 gross_revenue <- gross_revenue %>%
   collect()
 
@@ -305,6 +311,7 @@ graph2
 
 
 ```{r warning= FALSE, message=FALSE}
+## retrieve   SQL query for Emma Watson movies
 emmawatson <- db %>% 
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
 FROM cast_info ci
@@ -437,22 +444,21 @@ lilyplot
 
 
 
-**The Smithie Authors Behind This Article:**
+**The Smithies Behind This Article:**
 
 
 
-![**Khulood Fahim**](http://oi67.tinypic.com/14u9c3c.jpg)
+![**Khulood Fahim**](http://oi67.tinypic.com/14u9c3c.jpg){width=50%}
 
 
 *Khulood Fahim is a senior studying comparative literature and government and will be moving to Washington D.C. after graduation to partake in a yearlong research fellowship at a think tank*
 
 
-![**Zoya Alam**](http://oi64.tinypic.com/dnokna.jpg)
+![**Zoya Alam**](http://oi64.tinypic.com/dnokna.jpg){width=50%}
 
 *Zoya Alam is a senior studying economics and government and will be moving to New York after graduation to work in financial services* 
 
-![](http://oi64.tinypic.com/rkbfyf.jpg)
-**Zoya Azhar**
+![**Zoya  Azhar**](http://oi64.tinypic.com/rkbfyf.jpg){width=50%}
 
 
 *Zoya Azhar is a junior studying economics and english literature and will be spending her summer in Nairobi, Kenya conducting behavioral economics research*
