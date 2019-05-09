@@ -27,7 +27,7 @@ font-family: AppleMyungjo;
 
 
 
-```{r message= FALSE, warning=FALSE}
+```{r message= FALSE, warning=FALSE, comment=FALSE}
 ## load necessary packages
 library(tidyverse)
 library(RMySQL)
@@ -114,7 +114,11 @@ ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.characte
   geom_point(size=  10)+ 
   labs(x= "Production Year", y= "Gross Revenue (in millions of $)", color= "Movie", title = "The Disney Princess Market")+
   ggtitle("The Disney Princess Market")+
-  theme_minimal()
+  theme(plot.background = element_rect(fill = "#E9DBF4"),
+        panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                colour = "black"),
+        panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                colour = "black")) 
 
 ```
 
@@ -177,111 +181,6 @@ world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
   sf::st_transform(4326)
 ```
 
-```{r}
-emmawatson <- db %>% 
-  dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
-FROM cast_info ci
-JOIN name n
-ON ci.person_id = n.id
-JOIN title t
-ON t.id = ci.movie_id
-LEFT JOIN movie_info mi 
-ON mi.movie_id = ci.movie_id
-WHERE n.id = '4080909'
-AND t.kind_id = 1
-AND mi.info_type_id = 107
-AND mi.info LIKE '%(USA)%';")
-```
-
-```{r message=FALSE, warning=FALSE}
-emmawatson <- emmawatson %>% 
-  collect()
-
-emmawatson <- emmawatson %>% 
-  separate(info, c('gross', 'date'), sep=" ")
-
-
-emmawatson <- 
-  emmawatson %>% 
-  mutate(gross_2 = gsub("\\$", "", gross)) %>%
-  mutate(gross_3 = gsub("\\,", "", gross_2))
-
-emmawatson <- emmawatson %>%
-  mutate(gross_4 = as.numeric(gross_3))
-
-```
-
-```{r  warning=FALSE}
-emmawatson <- emmawatson %>%
-  group_by(title, production_year) %>%
-  summarise(maxgross = max(gross_4)) %>%
-  arrange(desc(production_year)) 
-```
-
-```{r}
-emmaplot <- emmawatson %>%
-  ggplot(aes(x = title, y = maxgross)) +
-  geom_col() +
-  theme(axis.text.x = element_text(angle = 90),
-        axis.title.x = element_text()) +
-  scale_y_continuous (labels = scales::comma) + 
-  ggtitle("Max Gross Revenue of Emma Watson's Movies")+
-  labs(x = "Movie Title", 
-       y = "Highest Gross Revenue")
-emmaplot
-``` 
-
-```{r message= FALSE,warning=FALSE}
-lilyjames <- db %>%
-  dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
-FROM cast_info ci
-JOIN name n
-ON ci.person_id = n.id
-JOIN title t
-ON t.id = ci.movie_id
-LEFT JOIN movie_info mi 
-ON mi.movie_id = ci.movie_id
-WHERE n.id = '3291430'
-AND t.kind_id = 1
-AND mi.info_type_id = 107
-AND mi.info LIKE '%(USA)%';")
-```
-
-```{r message=FALSE, warning=FALSE}
-lilyjames <- lilyjames %>% 
-  collect()
-
-lilyjames <- lilyjames %>% 
-  separate(info, c('gross', 'date'), sep=" ")
-
-
-lilyjames <- 
-  lilyjames %>% 
-  mutate(gross_2 = gsub("\\$", "", gross)) %>%
-  mutate(gross_3 = gsub("\\,", "", gross_2))
-
-lilyjames <- lilyjames %>%
-  mutate(gross_4 = as.numeric(gross_3))
-```
-
-```{r  message=FALSE,warning=FALSE}
-lilyjames <- lilyjames %>%
-  group_by(title, production_year) %>%
-  summarise(maxgross = max(gross_4)) %>%
-  arrange(desc(production_year)) 
-```
-
-```{r message=FALSE, warning=FALSE}
-lilyplot <- lilyjames %>%
-  ggplot(aes(x = title, y = maxgross)) +
-  geom_col() +
-  theme(axis.text.x = element_text(angle = 90)) +
-  scale_y_continuous (labels = scales::comma) +
-  ggtitle("Max Gross Revenue of Lily James's Movies") +
-  labs(x = "Movie Title", 
-       y = "Highest Gross Revenue")
-lilyplot
-``` 
 
 
 ### 2: Zoya Azhar
@@ -316,7 +215,11 @@ casestudy_1 <- cbind(casestudy, titles)
 graph2 <- casestudy_1 %>%
   ggplot(aes(x = titles, y = as.numeric(as.character(revenue_values)))) +
   geom_col(width = 0.5) +
-  labs(x= "Movie Title", y= "Gross Revenue (in millions of $)")
+  labs(x= "Movie Title", y= "Gross Revenue (in millions of $)") +
+    theme(plot.background = element_rect(fill = "#E9DBF4"),
+        axis.text.x = element_text(angle = 90, size = 10),
+        axis.text.y = element_text(size = 10))
+
        
 graph2 
 ```
@@ -369,8 +272,9 @@ emmawatson <- emmawatson %>%
 emmaplot <- emmawatson %>%
   ggplot(aes(x = title, y = maxgross)) +
   geom_col() +
-  theme(axis.text.x = element_text(angle = 90),
-        axis.title.x = element_text()) +
+  theme(axis.text.x = element_text(angle = 90, size = 10),
+        axis.text.y = element_text(size = 10),
+        plot.background = element_rect(fill = "#E9DBF4")) +
   scale_y_continuous (labels = scales::comma) + 
   ggtitle("Max Gross Revenue of Emma Watson's Movies")+
   labs(x = "Movie Title", 
@@ -422,7 +326,9 @@ lilyjames <- lilyjames %>%
 lilyplot <- lilyjames %>%
   ggplot(aes(x = title, y = maxgross)) +
   geom_col() +
-  theme(axis.text.x = element_text(angle = 90)) +
+  theme(axis.text.x = element_text(angle = 90, size = 10),
+        axis.text.y = element_text(size = 10),
+         plot.background = element_rect(fill = "#E9DBF4")) +
   scale_y_continuous (labels = scales::comma) +
   ggtitle("Max Gross Revenue of Lily James's Movies") +
   labs(x = "Movie Title", 
