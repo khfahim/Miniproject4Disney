@@ -55,6 +55,9 @@ db <- dbConnect(MySQL(),
 library(extrafont)
 library(data.table)
 library(magick)
+devtools::install_github("benmarwick/wordcountaddin", 
+                      type = "source", dependencies = TRUE)
+wordcountaddin:::text_stats("MP4.Rmd")
 
 ```
 
