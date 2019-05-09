@@ -9,6 +9,7 @@ output:
     fig.align : center
     theme: "journal"
 ---
+
 `r format(Sys.Date(), "%B %e, %Y")` at `r format(Sys.time(), "%H: %M: %S")`
 
 Access our  data from github  [^1]
@@ -194,6 +195,8 @@ AND mi.info_type_id = 107 #this gives us gross revenue
 AND t.title IN ('Beauty and the Beast', 'Cinderella')
 AND mi.id IN (2679219,2117948,2572174, 2055452);")
 
+
+#comment
 ```
 
 ```{r graph3, message=FALSE, warning=FALSE}
@@ -208,19 +211,20 @@ gross_revenue <- gross_revenue %>%
   #mutate(gross_2 = gsub("\\,", "", gross_1)) %>%
   #mutate(gross_3 = as.numeric(gross_2))
 
-revenue_values <- c("341,011,49", "200,849,342", "218,967,620", "504,014,165")
+revenue_values <- c("34.101", "200.849", "218.967", "504.014")
 titles <- c("Cinderella (1950)","Cinderella (2015)", "Beauty and the Beast (1991)", "Beauty and the Beast (2017)")
 
 casestudy <- cbind(gross_revenue, revenue_values)
 casestudy_1 <- cbind(casestudy, titles)
 
 graph2 <- casestudy_1 %>%
-  ggplot(aes(x = titles, y = revenue_values)) +
-  geom_col( width = 0.5) +
+  ggplot(aes(x = titles, y = as.numeric(as.character(revenue_values)))) +
+  geom_col(width = 0.5) +
   labs(x= "Movie Title", y= "Gross Revenue (in millions of $)") +
-  theme(plot.background = element_rect(fill = "#E9DBF4"),
+    theme(plot.background = element_rect(fill = "#E9DBF4"),
         axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10))
+
        
 graph2 
 ```
