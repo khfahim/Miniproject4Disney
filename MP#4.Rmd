@@ -311,7 +311,7 @@ gross_revenue <- gross_revenue %>%
   #mutate(gross_2 = gsub("\\,", "", gross_1)) %>%
   #mutate(gross_3 = as.numeric(gross_2))
 
-revenue_values <- c("341,011,49", "200,849,342", "218,967,620", "504,014,165")
+revenue_values <- c("34,101,149", "200,849,342", "218,967,620", "504,014,165")
 titles <- c("Cinderella (1950)","Cinderella (2015)", "Beauty and the Beast (1991)", "Beauty and the Beast (2017)")
 
 casestudy <- cbind(gross_revenue, revenue_values)
