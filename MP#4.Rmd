@@ -269,7 +269,7 @@ emmawatson <- emmawatson %>%
 
 ```{r}
 emmaplot <- emmawatson %>%
-  ggplot(aes(x = title, y = maxgross)) +
+  ggplot(aes(x = title, y = maxgross/1000000)) +
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10),
@@ -277,7 +277,8 @@ emmaplot <- emmawatson %>%
   scale_y_continuous (labels = scales::comma) + 
   ggtitle("Max Gross Revenue of Emma Watson's Movies")+
   labs(x = "Movie Title", 
-       y = "Highest Gross Revenue") 
+       y = "Highest Gross Revenue (millions)") +
+  scale_color_brewer()
 emmaplot
 ``` 
 
@@ -323,7 +324,7 @@ lilyjames <- lilyjames %>%
 
 ```{r message=FALSE, warning=FALSE}
 lilyplot <- lilyjames %>%
-  ggplot(aes(x = title, y = maxgross)) +
+  ggplot(aes(x = title, y = maxgross/1000000)) +
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10),
@@ -331,7 +332,7 @@ lilyplot <- lilyjames %>%
   scale_y_continuous (labels = scales::comma) +
   ggtitle("Max Gross Revenue of Lily James's Movies") +
   labs(x = "Movie Title", 
-       y = "Highest Gross Revenue") 
+       y = "Highest Gross Revenue (millions)") 
   
 lilyplot
 ``` 
