@@ -1,5 +1,5 @@
 ---
-title: "Disney Fans Cannot Get Enough of Red Roses and Glass Slippers"
+title: "Tales That Are Never Too Old For Time"
 author: "Khulood Fahim, Zoya Azhar, and Zoya Alam"
 output: 
   html_document:
@@ -65,7 +65,7 @@ library(magick)
 
 
 
-### 1: Zoya Alam 
+
 
 ![](https://media0.giphy.com/media/tGGqomlwZyI1i/giphy.gif?cid=790b76115cd3218565636b4b323a8ce7&rid=giphy.gif)
 
@@ -153,7 +153,7 @@ ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.characte
 
 
 ```{r  fig.show= 'hold', out.width= '50%',warning= FALSE, message=FALSE}
-# Insert Princess Tiana and Merida images and plot side by side
+# insert Princess Tiana and Merida images and plot side by side
 p1 <- ggdraw()+ draw_image("https://i.pinimg.com/originals/f5/a1/f2/f5a1f21e2ac0289fb764d142a1b01441.gif")
  
 p1
@@ -180,6 +180,7 @@ new_dp_table %>%
 
 
 ```{r include=FALSE, warning= FALSE, message=FALSE}
+## create dataset for world map with  global revenue of Beauty and  the Beast Remake
 global_beautyandthebeast <- db %>% 
   dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
 FROM title t
@@ -195,19 +196,50 @@ country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "I
 
 # Create data table for map
 global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
-global_beautyandthebeast_graph <- cbind(country, global_beautyandthebeast_graph)
-global_beautyandthebeast_graph
+global_beautyandthebeast_graph <- cbind(global_beautyandthebeast_graph, country)
 ```
 
-```{r warning= FALSE, message=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
   sf::st_as_sf() %>%
-  sf::st_transform(4326)
+  sf::st_transform(4326) %>%
+  rename("country"= ID)
+```
+
+```{r echo=TRUE}
+bb_wm  <- right_join(global_beautyandthebeast_graph, world, by= "country")
+
+
+bb_wm %>%
+  ggplot()+ 
+  geom_sf(aes(fill= gross_revenue_wbb))+
+  scale_fill_gradient(low= "pink", high= "purple")+ 
+  theme_map()+
+  labs(title = "Global Distribution of 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
+  theme(plot.title = element_text(family = "Century Gothic", size= 8), 
+        legend.title = element_text(family = "Century Gothic", size = 8), 
+        legend.text = element_text(family = "Century Gothic", size = 8))+ 
+    theme(plot.background = element_rect(fill = "#E9DBF4"), 
+          panel.grid.major = element_line("#E9DBF4"))
+
+bb_wm %>%
+filter(country== "Philippines") %>%
+   ggplot()+ 
+  geom_sf(aes(fill= gross_revenue_wbb))+
+  scale_fill_gradient(low= "purple", high= "purple")+ 
+  theme_map()+
+  labs(title = "Philippines 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
+  theme(plot.title = element_text(family = "Century Gothic", size= 8), 
+        legend.title = element_text(family = "Century Gothic", size = 8), 
+        legend.text = element_text(family = "Century Gothic", size = 8))+ 
+    theme(plot.background = element_rect(fill = "#E9DBF4"), 
+          panel.grid.major = element_line("#E9DBF4"))
+
 ```
 
 
 
-### 2: Zoya Azhar
+
 ```{r datawrangle_graph3, warning= FALSE, message=FALSE}
 
 # SQL code imported into R
@@ -254,22 +286,22 @@ graph2 <- casestudy_1 %>%
   ggplot(aes(x = titles, y = as.numeric(as.character(revenue_values)), fill= titles))+ 
   scale_fill_manual(values= legend_2) + 
   geom_col(width = 0.5) +
-  labs(title= "Original vs Remake Revenue Comparison",x= "Movie Title", y= "Gross Revenue (in millions of $)") +
+  labs(title= "Original vs. Remake Revenue Comparison", y= "Gross Revenue (in millions of $)") +
     theme(plot.background = element_rect(fill = "#E9DBF4"),
-        axis.text.x = element_text(angle = 90, size = 10),
+        axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10))+
-    theme (axis.title.y = element_text(family = "Century Gothic", size = 12), 
-        axis.title.x = element_text(family = "Century Gothic", size = 15),
+    theme (axis.title.x = element_text(family = "Century Gothic", size = 12), 
         axis.text.y = element_text(family = "Century Gothic", size = 12), 
         axis.text.x = element_text(family = "Century Gothic", size = 12),
-        plot.title = element_text(family = "Century Gothic", size = 18)) +
-  theme(legend.position = "none")
+        plot.title = element_text(family = "Century Gothic", size = 15)) +
+  theme(legend.position = "none")+
+  theme(axis.title.y = element_blank())+  
+  coord_flip()
 
 graph2 
 ```
 
 
-### 3: Khulood
 
 
 ```{r warning= FALSE, message=FALSE}
@@ -307,19 +339,26 @@ emmawatson <- emmawatson %>%
   summarise(maxgross = max(gross_4)) %>%
   arrange(desc(maxgross)) %>%
   head(10)
-  
 ```
 
 ```{r warning= FALSE, message=FALSE}
+legend_3 <- c("Beauty and the Beast"= "#FDE037", "Harry Potter and the Chamber of Secrets"= "#BA1A36", "Harry Potter and the Deathly Hallows: Part 1"= "#BA1A36", "Harry Potter and the Deathly Hallows: Part 2"= "#BA1A36", "Harry Potter and the Goblet of Fire"="#BA1A36", "Harry Potter and the Half-Blood Prince"= "#BA1A36", "Harry Potter and the Order of the Phoenix"= "#BA1A36" , "Harry Potter and the Prisoner of Azkaban"= "#BA1A36", "Harry Potter and the Sorcerer's Stone"= "#BA1A36", "This Is the End"= "#E1048A")
+
 emmaplot <- emmawatson %>%
-  ggplot(aes(x = title, y = maxgross/1000000)) +
+  ggplot(aes(x = title, y = maxgross/1000000, fill= title)) +
+      scale_fill_manual(values = legend_3)+ 
   geom_col() +
-  theme(axis.text.x = element_text(angle = 90, size = 10),
+    labs(title="Max Gross Revenue of Emma Watson's Movies", y = "Gross Revenue (in millions of $)") + 
+  theme(axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
         plot.background = element_rect(fill = "#E9DBF4")) +
-  ggtitle("Max Gross Revenue of Emma Watson's Movies")+
-  labs(x = "Movie Title", 
-       y = "Highest Gross Revenue (millions)") 
+        theme (axis.title.x =  element_text(family = "Century Gothic", size = 12), 
+        axis.text.y = element_text(family = "Century Gothic", size = 12), 
+        axis.text.x = element_text(family = "Century Gothic", size = 12),
+        plot.title = element_text(family = "Century Gothic", size = 12)) +
+  theme(legend.position = "none")+
+  theme(axis.title.y = element_blank())+ 
+  coord_flip()
   
 emmaplot
 ``` 
@@ -366,24 +405,58 @@ lilyjames <- lilyjames %>%
 ```
 
 ```{r warning= FALSE, message=FALSE}
+
+legend_4 <- c("Baby Driver"= "#D25D70", "Burnt"="#6BAFC5", "Cinderella"= "#94A8E7" , "Pride and Prejudice and Zombies"= "#55854B", "Wrath of the Titans"="#BA1A36")
+
 lilyplot <- lilyjames %>%
-  ggplot(aes(x = title, y = maxgross/1000000)) +
+  filter(!title== "The Exception") %>%
+  ggplot(aes(x = title, y = maxgross/1000000, fill= title)) +
+  scale_fill_manual(values = legend_4)+ 
   geom_col() +
-  theme(axis.text.x = element_text(angle = 90, size = 10),
+  theme(axis.text.x = element_text(size = 10),
         axis.text.y = element_text(size = 10),
          plot.background = element_rect(fill = "#E9DBF4")) +
   scale_y_continuous (labels = scales::comma) +
   ggtitle("Max Gross Revenue of Lily James's Movies") +
-  labs(x = "Movie Title", 
-       y = "Gross Revenue (in millions of $)") +
-      theme (axis.title.y = element_text(family = "Century Gothic", size = 15), 
-        axis.title.x = element_text(family = "Century Gothic", size = 15),
-        axis.text.y = element_text(family = "Century Gothic", size = 8), 
-        axis.text.x = element_text(family = "Century Gothic", size = 8),
-        plot.title = element_text(family = "Century Gothic", size = 18))
+  labs(y = "Gross Revenue (in millions of $)") +
+      theme (axis.title.x = element_text(family = "Century Gothic", size = 12),
+        axis.text.y = element_text(family = "Century Gothic", size = 12), 
+        axis.text.x = element_text(family = "Century Gothic", size = 12),
+        plot.title = element_text(family = "Century Gothic", size = 14))+
+  theme(legend.position = "none") + 
+  theme(axis.title.y =element_blank())+ 
+  coord_flip()
   
 lilyplot
 ``` 
+
+
+
+
+
+
+
+
+**The Smithie Authors Behind This Article:**
+
+
+
+![**Khulood Fahim**](http://oi67.tinypic.com/14u9c3c.jpg)
+
+
+*Khulood Fahim is a senior studying comparative literature and government and will be moving to Washington D.C. after graduation to partake in a yearlong research fellowship at a think tank*
+
+
+![**Zoya Alam**](http://oi64.tinypic.com/dnokna.jpg)
+
+*Zoya Alam is a senior studying economics and government and will be moving to New York after graduation to work in financial services* 
+
+![](http://oi64.tinypic.com/rkbfyf.jpg)
+**Zoya Azhar**
+
+
+*Zoya Azhar is a junior studying economics and english literature and will be spending her summer in Nairobi, Kenya conducting behavioral economics research*
+
 
 
 
