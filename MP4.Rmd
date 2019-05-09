@@ -45,6 +45,9 @@ library(leaflet)
 library(mapdata)
 library(rsvg)
 library(RColorBrewer)
+library(extrafont)
+library(data.table)
+library(magick)
 
 db <- dbConnect(MySQL(), 
                 host = "scidb.smith.edu", 
@@ -52,9 +55,7 @@ db <- dbConnect(MySQL(),
                 password = "RememberPi", 
                 dbname = "imdb")
 
-library(extrafont)
-library(data.table)
-library(magick)
+
 devtools::install_github("benmarwick/wordcountaddin", 
                       type = "source", dependencies = TRUE)
 wordcountaddin:::text_stats("MP4.Rmd")
