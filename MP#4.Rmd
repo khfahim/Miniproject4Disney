@@ -41,6 +41,7 @@ library(sp)
 library(sf)
 library(leaflet)
 library(mapdata)
+library(RColorBrewer)
 db <- dbConnect(MySQL(), 
                 host = "scidb.smith.edu", 
                 user = "mth292", 
@@ -270,7 +271,9 @@ emmawatson <- emmawatson %>%
 emmawatson <- emmawatson %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
-  arrange(desc(production_year)) 
+  arrange(desc(maxgross)) %>%
+  head(10)
+  
 ```
 
 ```{r}
@@ -279,12 +282,13 @@ emmaplot <- emmawatson %>%
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10),
-        plot.background = element_rect(fill = "#E9DBF4")) +
+        plot.background = element_rect(fill = "#E9DBF4"),
+        scale_fill_brewer(palette = "RdPu")) +
   scale_y_continuous (labels = scales::comma) + 
   ggtitle("Max Gross Revenue of Emma Watson's Movies")+
   labs(x = "Movie Title", 
-       y = "Highest Gross Revenue (millions)") +
-  scale_color_brewer()
+       y = "Highest Gross Revenue (millions)") 
+  
 emmaplot
 ``` 
 
