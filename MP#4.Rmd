@@ -9,6 +9,7 @@ output:
     fig.align : center
     theme: "journal"
 ---
+
 `r format(Sys.Date(), "%B %e, %Y")` at `r format(Sys.time(), "%H: %M: %S")`
 
 Access our  data from github  [^1]
