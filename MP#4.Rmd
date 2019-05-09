@@ -296,9 +296,7 @@ emmaplot <- emmawatson %>%
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10),
-        plot.background = element_rect(fill = "#E9DBF4"),
-        scale_fill_brewer(palette = "RdPu")) +
-  scale_y_continuous (labels = scales::comma) + 
+        plot.background = element_rect(fill = "#E9DBF4")) +
   ggtitle("Max Gross Revenue of Emma Watson's Movies")+
   labs(x = "Movie Title", 
        y = "Highest Gross Revenue (millions)") 
@@ -343,7 +341,7 @@ lilyjames <- lilyjames %>%
 lilyjames <- lilyjames %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
-  arrange(desc(production_year)) 
+  arrange(desc(maxgross)) 
 ```
 
 ```{r warning= FALSE, message=FALSE}
@@ -353,7 +351,6 @@ lilyplot <- lilyjames %>%
   theme(axis.text.x = element_text(angle = 90, size = 10),
         axis.text.y = element_text(size = 10),
          plot.background = element_rect(fill = "#E9DBF4")) +
-  scale_y_continuous (labels = scales::comma) +
   ggtitle("Max Gross Revenue of Lily James's Movies") +
   labs(x = "Movie Title", 
        y = "Highest Gross Revenue (millions)") 
