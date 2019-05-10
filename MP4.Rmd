@@ -9,7 +9,7 @@ output:
     fig.align : center
     theme: "journal"
 ---
-`r format(Sys.Date(), "%B %e, %Y")` at `r format(Sys.time(), "%H: %M: %S")`
+You are reading this on `r format(Sys.Date(), "%B %e, %Y")` at `r format(Sys.time(), "%H: %M: %S")`
 
 Access our  data from github  [^1]
 
@@ -68,7 +68,7 @@ wordcountaddin:::text_stats("MP4.Rmd")
 
 
 ```{r  fig.show= 'hold', out.width= '50%',warning= FALSE, message=FALSE}
-# insert Aladdin  originaland remake  images and plot side by side
+# Insert Aladdin  original and remake  images and plot side by side
 p1 <- ggdraw()+ draw_image("https://usercontent1.hubstatic.com/8321508_f520.jpg")
  
 p1
@@ -99,9 +99,7 @@ Aladdin 1992 (left), Aladdin 2019 (right)
 
 ![Cinderella 2015](https://media3.giphy.com/media/lW54ePLsorvgY/giphy.gif?cid=790b76115cd323da7344694473d83b93&rid=giphy.gif)
 
-
-
-**When looking at the market of the ‘original’ disney princesses, we notice that Cinderella was one of the oldest movies produced by the company and Beauty and the Beast one of  the highest grossing movies. Therefore, these are two potential reasons for why Disney detected potential for the success of their remakes and decided to start with them in releasing remakes.**
+**When looking at the market of the ‘original’ Disney princesses, we notice that *Cinderella* is one of the oldest movies produced by the company and *Beauty and the Beast* is one of the highest grossing movies. These are two indicators for success that Disney may have detected.**  
 
 ![](http://clipart-library.com/img1/833428.png)
 
@@ -115,7 +113,7 @@ Aladdin 1992 (left), Aladdin 2019 (right)
 
 ```{r warning= FALSE, message=FALSE}
 
-# retrieve SQL query
+# Use SQL query to retrieve original disney princess movies and their gross revenues using indexing
 
 disney_princesses <- db %>%
   dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
@@ -127,7 +125,7 @@ WHERE title IN ('The Little Mermaid', 'Aladdin', 'Beauty and the Beast',
  2133632, 2063386, 2113820, 2055452);") %>%
   collect()
 
-# bind gross revenue information to dataset after dividing nominal gross values by one million
+# Bind gross revenue information to dataset after dividing nominal gross values by one million
 
 gross_revenue <- c("34.1", "13.24", "211.34", "424.97",  "504.05", "347.1", "116.3")
 
@@ -138,7 +136,7 @@ disney_princesses_final <- cbind(disney_princesses, gross_revenue)
 legend <- c("The Little Mermaid"= "#BA1A36", "Aladdin"= "#6BAFC5", "Beauty and the Beast"= "#FDE037", "Mulan"= "#55854B", "Pocahontas"= "#D25D70", "Sleeping Beauty"= "#E1048A", 
 "Cinderella"= "#94A8E7")
 
-# create scatterplot
+# Create Disney princess market scatterplot
 
 ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.character(gross_revenue)), color= title)) + 
     scale_color_manual(values = legend)+
@@ -165,7 +163,7 @@ ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.characte
 
 
 ```{r  fig.show= 'hold', out.width= '50%',warning= FALSE, message=FALSE}
-# insert Princess Tiana and Merida images and plot side by side
+# Insert Princess Tiana and Merida images and plot side by side
 p1 <- ggdraw()+ draw_image("https://i.pinimg.com/originals/f5/a1/f2/f5a1f21e2ac0289fb764d142a1b01441.gif")
  
 p1
@@ -180,7 +178,7 @@ Princess Tiana (left) and  Merida (right)
 
 
 ```{r warning= FALSE, message=FALSE}
-## manually create data table with information about recent disney princess movies
+# Manually create data table with information about recent disney princess movies
 
 new_dp_table <- data.table(Movie= c("The Princess and the Frog", "Brave"), 
   Year= c("2009", "2012"), 
@@ -195,7 +193,7 @@ formattable(new_dp_table)
 
 ![Plumette 2017 versus 1991](https://www.telegraph.co.uk/content/dam/films/2017/02/28/plumette_trans_NvBQzQNjv4BqNUHzxaamNmHDqK-YksWRz2o-yMLyYquKCawpyDOW254.jpg?imwidth=450)
 
-**Finally, the remake movies give more insight in to the stories of essential female characters. In both remakes of Cinderella and Beauty and the Beast, we learn about the stories of these princesses’ mothers and the reasons behind their deaths.** 
+**Finally, the remake movies give insight in to the stories of essential female characters. In both remakes of Cinderella and Beauty and the Beast, we learn about the stories of these princesses’ mothers and the reasons behind their deaths.** 
 
 
 ![Belle's Mother](https://i.ytimg.com/vi/aB7rG5P_Iu0/maxresdefault.jpg)
@@ -204,72 +202,14 @@ formattable(new_dp_table)
 ![Cinderella's Mother](https://i.pinimg.com/originals/2b/74/30/2b7430c58312a4fe35f182218488250c.jpg)
 
 
-**We also find out more about the stepmother in Cinderella,allowing the viewers to understand how, in many ways, Cinderella’s stepmother  is a ‘prisoner in her own home’.**
+**We also find out more about the stepmother in Cinderella,allowing the viewers to understand how her wicked nature can be explained by the fact that she is a ‘prisoner in her own home’.**
 
 ![Cinderella's Stepmother](https://www.gannett-cdn.com/-mm-/7d2ec2487b9786f952e112ba1035ebaf4b4fefca/c=555-136-2010-1230/local/-/media/2015/08/29/USATODAY/USATODAY/635764584061885937-Cindy2.png?width=540&height=405&fit=crop)
 
+It appears as though these inclusive and feminist initiatives are working well for Disney. When comparing the gross revenues of the 1991 Beauty and the Beast with the 2017 remake, and the 1950 Cinderella with the 2015 remake, it is evident  that, in both cases, remakes made significantly more money than the original in the US domestic box office.  The original Beauty and the Beast made $218,967,620 and the remake made $504,014,165, while the original Cinderella made $34,101,149 and the remake made $200,849,342.
 
-```{r include=FALSE, warning= FALSE, message=FALSE}
-## create dataset for world map with  global revenue of Beauty and  the Beast Remake
-global_beautyandthebeast <- db %>% 
-  dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
-FROM title t
-JOIN movie_info  mi
-ON t.id= mi.movie_id
-WHERE title IN ('Beauty and the Beast') AND info_type_id= 107 AND production_year= 2017 AND  mi.id IN 
-(2679219, 2679265,2679352, 2679353, 2679354, 2679355, 2679356, 2679357, 2679363, 2679364, 2679365);") %>%
-  collect()
 
-gross_revenue_wbb <- c(504, 90.47, 36.3, 6.63, 41.5, 85.76, 4.15, 20.38, 110.46, 7.2, 657.5)
-country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "Italy", 
-             "Japan", "Netherlands", "Philippines")
 
-# Create data table for map
-global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
-global_beautyandthebeast_graph <- cbind(global_beautyandthebeast_graph, country)
-```
-
-```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=5}
-##  create sf object of world  data in order to make world  map
-world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
-  sf::st_as_sf() %>%
-  sf::st_transform(4326) %>%
-  rename("country"= ID)
-
-## merge world map data and beauty and the beast graph data for map
-bb_wm  <- right_join(global_beautyandthebeast_graph, world, by= "country")
-
-##  create world map
-bb_wm %>%
-  ggplot()+ 
-  geom_sf(aes(fill= gross_revenue_wbb))+
-  scale_fill_gradient(low= "pink", high= "purple")+
-  theme_map()+ 
-  labs(title = "Global Distribution of 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
-  theme(plot.title = element_text(family = "Century Gothic", size= 8), 
-        legend.title = element_text(family = "Century Gothic", size = 8), 
-        legend.text = element_text(family = "Century Gothic", size = 8))+ 
-    theme(plot.background = element_rect(fill = "#E9DBF4", color = NA),
-          panel.background = element_rect(fill = "#E9DBF4", color = NA),
-          panel.grid.major = element_line("#E9DBF4"))
-```
-
-```{r fig.width=5,  fig.height=8}
-##create map for Philippines
-
-bb_wm %>%
-filter(country== "Philippines") %>%
-   ggplot(size= 2)+ 
-  geom_sf(aes(fill= gross_revenue_wbb))+
-  scale_fill_gradient(low= "purple", high= "purple")+ 
-  theme_map()+
-  labs(title = "Philippines 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
-  theme(plot.title = element_text(family = "Century Gothic", size= 14), 
-        legend.title = element_text(family = "Century Gothic", size = 8), 
-        legend.text = element_text(family = "Century Gothic", size = 8))+ 
-    theme(plot.background = element_rect(fill = "#E9DBF4"), 
-          panel.grid.major = element_line("#E9DBF4"))
-```
 
 
 
@@ -292,11 +232,76 @@ AND mi.id IN (2679219,2117948,2572174, 2055452);")
 
 ```
 
+It is important to note that although the Cinderella remake was released before the Beauty and the Beast remake, the decision to remake Beauty and the Beast was not spurred on by the former’s performance at the box office. In fact Beauty and the Beast had already been in production since 2011 and finished filming on Aug. 21, 2015. 
 
+Additionally, the remake of Beauty and the Beast appealed to many viewers globally, and primarily in the countries of the United Kingdom, the United States, Brazil, Belgium, Philippines, China, India, and Australia. 
 
+```{r include=FALSE, warning= FALSE, message=FALSE}
+# Create dataset for world map with  global revenue of Beauty and  the Beast Remake
+global_beautyandthebeast <- db %>% 
+  dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
+FROM title t
+JOIN movie_info  mi
+ON t.id= mi.movie_id
+WHERE title IN ('Beauty and the Beast') AND info_type_id= 107 AND production_year= 2017 AND  mi.id IN 
+(2679219, 2679265,2679352, 2679353, 2679354, 2679355, 2679356, 2679357, 2679363, 2679364, 2679365);") %>%
+  collect()
+
+gross_revenue_wbb <- c(504, 90.47, 36.3, 6.63, 41.5, 85.76, 4.15, 20.38, 110.46, 7.2, 657.5)
+country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "Italy", 
+             "Japan", "Netherlands", "Philippines")
+
+# Create data table for map
+global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
+global_beautyandthebeast_graph <- cbind(global_beautyandthebeast_graph, country)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=5}
+# Create sf object of world  data in order to make world  map
+world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
+  sf::st_as_sf() %>%
+  sf::st_transform(4326) %>%
+  rename("country"= ID)
+
+# Merge world map data and beauty and the beast graph data for map
+bb_wm  <- right_join(global_beautyandthebeast_graph, world, by= "country")
+
+# Create world map
+bb_wm %>%
+  ggplot()+ 
+  geom_sf(aes(fill= gross_revenue_wbb))+
+  scale_fill_gradient(low= "pink", high= "purple")+
+  theme_map()+ 
+  labs(title = "Global Distribution of 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
+  theme(plot.title = element_text(family = "Century Gothic", size= 8), 
+        legend.title = element_text(family = "Century Gothic", size = 8), 
+        legend.text = element_text(family = "Century Gothic", size = 8))+ 
+    theme(plot.background = element_rect(fill = "#E9DBF4", color = NA),
+          panel.background = element_rect(fill = "#E9DBF4", color = NA),
+          panel.grid.major = element_line("#E9DBF4"))
+```
+
+Despite the fact that the country's population is one third of the United States, Philippines was the country  where Beauty and the Beast grossed the highest[^1]. 
+
+```{r fig.width=5,  fig.height=8}
+# Create map for Philippines
+
+bb_wm %>%
+filter(country== "Philippines") %>%
+   ggplot(size= 2)+ 
+  geom_sf(aes(fill= gross_revenue_wbb))+
+  scale_fill_gradient(low= "purple", high= "purple")+ 
+  theme_map()+
+  labs(title = "Philippines 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
+  theme(plot.title = element_text(family = "Century Gothic", size= 14), 
+        legend.title = element_text(family = "Century Gothic", size = 8), 
+        legend.text = element_text(family = "Century Gothic", size = 8))+ 
+    theme(plot.background = element_rect(fill = "#E9DBF4"), 
+          panel.grid.major = element_line("#E9DBF4"))
+```
 ```{r graph3, warning= FALSE, message=FALSE}
 
-# create dataframe
+# Create dataframe
 gross_revenue <- gross_revenue %>%
   collect()
 
@@ -312,7 +317,7 @@ titles <- c("Cinderella (1950)","Cinderella (2015)", "Beauty and the Beast (1991
 casestudy <- cbind(gross_revenue, revenue_values)
 casestudy_1 <- cbind(casestudy, titles)
 
-## manually create legend 
+# Manually create legend 
 legend_2 <- c("Beauty and the Beast (1991)"= "#FDE037", "Beauty and the Beast (2017)"= "#FDE037","Cinderella (1950)"= "#94A8E7", "Cinderella (2015)"= "#94A8E7")
 
 # Plot graph
@@ -335,11 +340,13 @@ graph2 <- casestudy_1 %>%
 graph2 
 ```
 
-
+**Unlike the original movies, a significant portion of the marketing for these two remakes relied on the “star power” of the cast. The original Cinderella, released in 1950, featured Ilene Woods in the role of *Cinderella*. Prior to her voice-acting role, Woods was engaged primarily in radio series, and it was her voice that caught the attention of Walt Disney himself. Her only other movie experience was an appearance in On Stage Everybody (1945). Therefore, Cinderella was a new experience and a catalyst for Woods’s increased exposure. The case was similar for Paige O’Hara, the voice actress who played Belle in the original *Beauty and the Beast* (1991). Belle was in fact O’Hara’s very first role and launched her career. Since the release of the movie, she has mainly continued to serve as a voice actress for Belle in the character’s appearances in TV series, shorts, and other movies. We can see, then, that for the originals, it was the movies that largely shaped the careers of the cast and not the cast that factored in the success of the movies. 
+	The opposite can be said for the remakes. *Cinderella* (2015)’s Lily James was already enjoying a prosperous acting career when she was cast as the lead, mostly owing to her role in hit TV show Downton Abbey, among other roles. As for Belle, Emma Watson is hardly in need of an introduction. A star from childhood as a result of her role as Hermione in the Harry Potter franchise, Watson’s role as Belle was a major selling point for the movie. 
+	The actresses’ careers made comparing the remakes to James’s and Watson’s other movies all the more interesting. For both actresses, the remakes grossed higher than any other movie in which they appeared. Most surprising is Emma Watson, for whom *Beauty and the Beast* grossed higher than any Harry Potter movie.** 
 
 
 ```{r warning= FALSE, message=FALSE}
-## retrieve   SQL query for Emma Watson movies
+# Retrieve SQL query for Emma Watson movies
 emmawatson <- db %>% 
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
 FROM cast_info ci
@@ -356,19 +363,20 @@ AND mi.info LIKE '%(USA)%';")
 ```
 
 ```{r warning= FALSE, message=FALSE}
+# Turn result of SQL query into a dataframe
 emmawatson <- emmawatson %>% 
   collect()
+
+# Wrangle the data to create a numeric  value out of "gross" that is readable by R 
 emmawatson <- emmawatson %>% 
   separate(info, c('gross', 'date'), sep=" ")
 emmawatson <- 
   emmawatson %>% 
   mutate(gross_2 = gsub("\\$", "", gross)) %>%
-  mutate(gross_3 = gsub("\\,", "", gross_2))
-emmawatson <- emmawatson %>%
+  mutate(gross_3 = gsub("\\,", "", gross_2)) %>%
   mutate(gross_4 = as.numeric(gross_3))
-```
 
-```{r  warning= FALSE, message=FALSE}
+# Arrange movies by gross revenue 
 emmawatson <- emmawatson %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
@@ -377,8 +385,11 @@ emmawatson <- emmawatson %>%
 ```
 
 ```{r warning= FALSE, message=FALSE}
+
+# Set a legend for Emma Watson's movies
 legend_3 <- c("Beauty and the Beast"= "#FDE037", "Harry Potter and the Chamber of Secrets"= "#BA1A36", "Harry Potter and the Deathly Hallows: Part 1"= "#BA1A36", "Harry Potter and the Deathly Hallows: Part 2"= "#BA1A36", "Harry Potter and the Goblet of Fire"="#BA1A36", "Harry Potter and the Half-Blood Prince"= "#BA1A36", "Harry Potter and the Order of the Phoenix"= "#BA1A36" , "Harry Potter and the Prisoner of Azkaban"= "#BA1A36", "Harry Potter and the Sorcerer's Stone"= "#BA1A36", "This Is the End"= "#E1048A")
 
+# Create a bar graph for Emma Watson's movies
 emmaplot <- emmawatson %>%
   ggplot(aes(x = title, y = maxgross/1000000, fill= title)) +
       scale_fill_manual(values = legend_3)+ 
@@ -398,8 +409,13 @@ emmaplot <- emmawatson %>%
 emmaplot
 ``` 
 
+**From its production up until 2017, *Beauty and the Beast* grossed $50,4014,165. The highest grossing Harry Potter movie, Harry Potter and the Deathly Hallows, stops short at $381,011,219. Considering the scale of the Harry Potter franchise and the culture that has been built around the movies, it is interesting to note that-- in terms of Watson’s career--the *Beauty and the Beast* remake far surpasses them in the gross revenue that it has earned.** 
+
+The results are similar for Lily James, albeit a little less surprising.
 
 ```{r warning= FALSE, message=FALSE}
+# Retrieve SQL query for Lily James movies
+
 lilyjames <- db %>%
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
 FROM cast_info ci
@@ -416,23 +432,24 @@ AND mi.info LIKE '%(USA)%';")
 ```
 
 ```{r warning= FALSE, message=FALSE}
+
+# Turn result of SQL query into a dataframe
+
 lilyjames <- lilyjames %>% 
   collect()
+
+# Wrangle the data to create a numeric  value out of "gross" that is readable by R 
 
 lilyjames <- lilyjames %>% 
   separate(info, c('gross', 'date'), sep=" ")
 
-
 lilyjames <- 
   lilyjames %>% 
   mutate(gross_2 = gsub("\\$", "", gross)) %>%
-  mutate(gross_3 = gsub("\\,", "", gross_2))
-
-lilyjames <- lilyjames %>%
+  mutate(gross_3 = gsub("\\,", "", gross_2)) %>%
   mutate(gross_4 = as.numeric(gross_3))
-```
 
-```{r  warning= FALSE, message=FALSE}
+# Arrange movies by gross revenue 
 lilyjames <- lilyjames %>%
   group_by(title, production_year) %>%
   summarise(maxgross = max(gross_4)) %>%
@@ -441,8 +458,10 @@ lilyjames <- lilyjames %>%
 
 ```{r warning= FALSE, message=FALSE}
 
+# Set a legend for Lily James's movies
 legend_4 <- c("Baby Driver"= "#D25D70", "Burnt"="#6BAFC5", "Cinderella"= "#94A8E7" , "Pride and Prejudice and Zombies"= "#55854B", "Wrath of the Titans"="#BA1A36")
 
+# Create a bar graph for Emma Watson's movies
 lilyplot <- lilyjames %>%
   filter(!title== "The Exception") %>%
   ggplot(aes(x = title, y = maxgross/1000000, fill= title)) +
@@ -466,6 +485,9 @@ lilyplot
 ``` 
 
 
+**The highest amount of gross revenue accumulated by *Cinderella* was $201,151,353. Movies in which James starred prior only grossed 13,650,738 - Burnt (2015) - and 83,670,083 - Wrath of the Titans (2012). The second highest grossing movie in James’s portfolio is Baby Driver (2017) at 101,689,495. It is quite possible to conclude, then, that *Cinderella* was a catalyst for James’s movie career similarly to the way it was for Woods. However, this analysis is limited in that it ignores James’ TV acting career, which possibly explains the trend shown. 
+
+Overall, the star power associated with these two remakes may explain the success in comparison to other movies on the market. On the level of the actors themselves, other factors contribute to the success of the movies as compared to their other works. It is interesting to note that these two movies are the only remakes done by these actors, with other movies being original productions. It is possible that audiences were not only looking for plot lines and entertainment when they headed to theatres, but also a chance to revisit timeless classics. Whatever the case, one fact is clear: Disney’s princess stories are tales that are never too old for Disney fans all around the world.**
 
 
 
@@ -476,17 +498,17 @@ lilyplot
 
 
 
-![**Khulood Fahim**](http://oi67.tinypic.com/14u9c3c.jpg){width=50%}
+![**Khulood Fahim**](http://oi67.tinypic.com/14u9c3c.jpg){width=25%}
 
 
 *Khulood Fahim is a senior studying comparative literature and government and will be moving to Washington D.C. after graduation to partake in a yearlong research fellowship at a think tank*
 
 
-![**Zoya Alam**](http://oi64.tinypic.com/dnokna.jpg){width=50%}
+![**Zoya Alam**](http://oi64.tinypic.com/dnokna.jpg){width=25%}
 
 *Zoya Alam is a senior studying economics and government and will be moving to New York after graduation to work in financial services* 
 
-![**Zoya  Azhar**](http://oi64.tinypic.com/rkbfyf.jpg){width=50%}
+![**Zoya  Azhar**](http://oi64.tinypic.com/rkbfyf.jpg){width=25%}
 
 
 *Zoya Azhar is a junior studying economics and english literature and will be spending her summer in Nairobi, Kenya conducting behavioral economics research*
