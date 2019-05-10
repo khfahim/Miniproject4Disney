@@ -25,7 +25,6 @@ font-family: AppleMyungjo;
 ![](https://media.giphy.com/media/42ZPYptEGgxaM/giphy.gif)
 
 
-
 ```{r message= FALSE, warning=FALSE, comment=FALSE}
 
 # Load necessary packages
