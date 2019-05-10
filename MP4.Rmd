@@ -11,7 +11,7 @@ output:
 ---
 You are reading this on `r format(Sys.Date(), "%B %e, %Y")` at `r format(Sys.time(), "%H: %M: %S")`
 
-Access our  data from github  [^1]
+Access our data from github [^1]
 
 <style>
 body {}
@@ -62,7 +62,7 @@ wordcountaddin:::text_stats("MP4.Rmd")
 
 ```
 
-**Much to the joy of Disney fans young and old, the long-awaited release of a live-action remake of Disney's Aladdin is part of a continuing trend that the production company has been following.**
+**Much to the joy of Disney fans young and old, the long-awaited release of a live-action remake of Disney's *Aladdin* is part of a continuing trend that the production company has been following.**
 
 
 
@@ -82,11 +82,7 @@ Aladdin 1992 (left), Aladdin 2019 (right)
 
 
 
-
-
-
-
-**This began in 2015 and 2017,when remade versions of Cinderella and Beauty and the Beast were released. This article will analyze these two movies in an effort to understand what has prompted Disney to remake some of its ‘classic’ films.** 
+**This began in 2015 and 2017, when remade versions of *Cinderella* and *Beauty and the Beast* were released. This article will analyze these two movies in an effort to understand what has prompted Disney to remake some of its ‘classic’ films.** 
 
 ![Beauty and the Beast 1991](https://media0.giphy.com/media/tGGqomlwZyI1i/giphy.gif?cid=790b76115cd3218565636b4b323a8ce7&rid=giphy.gif)
 
@@ -102,12 +98,6 @@ Aladdin 1992 (left), Aladdin 2019 (right)
 **When looking at the market of the ‘original’ Disney princesses, we notice that *Cinderella* is one of the oldest movies produced by the company and *Beauty and the Beast* is one of the highest grossing movies. These are two indicators for success that Disney may have detected.**  
 
 ![](http://clipart-library.com/img1/833428.png)
-
-
-
-
-
-
 
 
 
@@ -158,7 +148,7 @@ ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.characte
 
 ```
 
-**However, it is also possible that Disney used these remakes as an opportunity to ‘revitalize’ these original princess stories and make them more inclusive and compatible with the current social climate. Even in its animated productions, Disney has been making this effort in recent years by bringing in ‘fresh faces’ to the disney princess crew with the introduction of Princess Tiana in the Princess and the Frog and Princess Merida in Brave.** 
+**However, it is also possible that Disney used these remakes as an opportunity to ‘revitalize’ these original princess stories and make them more inclusive and compatible with the current social climate. Even in its animated productions, Disney has been making this effort in recent years by bringing in ‘fresh faces’ to the disney princess crew with the introduction of Princess Tiana in *The Princess and the Frog* and Princess Merida in *Brave*. These movies grossed at $104.4 and $237.3 million respectively.** 
 
 
 
@@ -189,11 +179,11 @@ formattable(new_dp_table)
 ```
 
 
-**The remakes exhibit this clearly, with some characters originally played by (or drawn as) White individuals portrayed in the remakes by people of color. For example, contrary to the original movie, the 2017 Beauty and the Beast casts a woman of color to portray Plumette.** 
+**The remakes attempt to exhibit this, with some characters originally played by (or drawn as) White individuals portrayed in the remakes by people of color. For example, contrary to the original movie, the 2017 *Beauty and the Beast* casts a woman of color to portray Plumette.** 
 
 ![Plumette 2017 versus 1991](https://www.telegraph.co.uk/content/dam/films/2017/02/28/plumette_trans_NvBQzQNjv4BqNUHzxaamNmHDqK-YksWRz2o-yMLyYquKCawpyDOW254.jpg?imwidth=450)
 
-**Finally, the remake movies give insight in to the stories of essential female characters. In both remakes of Cinderella and Beauty and the Beast, we learn about the stories of these princesses’ mothers and the reasons behind their deaths.** 
+**Finally, the remake movies give insight in to the stories of essential female characters. In both remakes of *Cinderella* and *Beauty and the Beast*, we learn about the stories of these princesses’ mothers and the reasons behind their deaths.** 
 
 
 ![Belle's Mother](https://i.ytimg.com/vi/aB7rG5P_Iu0/maxresdefault.jpg)
@@ -202,19 +192,15 @@ formattable(new_dp_table)
 ![Cinderella's Mother](https://i.pinimg.com/originals/2b/74/30/2b7430c58312a4fe35f182218488250c.jpg)
 
 
-**We also find out more about the stepmother in Cinderella,allowing the viewers to understand how her wicked nature can be explained by the fact that she is a ‘prisoner in her own home’.**
+**We also find out more about the stepmother in *Cinderella*, allowing the viewers to understand how her wicked nature can be explained by the fact that she is a ‘prisoner in her own home’.**
 
 ![Cinderella's Stepmother](https://www.gannett-cdn.com/-mm-/7d2ec2487b9786f952e112ba1035ebaf4b4fefca/c=555-136-2010-1230/local/-/media/2015/08/29/USATODAY/USATODAY/635764584061885937-Cindy2.png?width=540&height=405&fit=crop)
 
-It appears as though these inclusive and feminist initiatives are working well for Disney. When comparing the gross revenues of the 1991 Beauty and the Beast with the 2017 remake, and the 1950 Cinderella with the 2015 remake, it is evident  that, in both cases, remakes made significantly more money than the original in the US domestic box office.  The original Beauty and the Beast made $218,967,620 and the remake made $504,014,165, while the original Cinderella made $34,101,149 and the remake made $200,849,342.
+**It appears as though these inclusive and feminist initiatives are working well for Disney. When comparing the gross revenues of the 1991 *Beauty and the Beast* with the 2017 remake, and the 1950 *Cinderella* with the 2015 remake, it is evident  that, in both cases, remakes made significantly more money than the original in the US domestic box office.  The original *Beauty and the Beast* made $218,967,620 and the remake made $504,014,165, while the original *Cinderella* made $34,101,149 and the remake made $200,849,342.**
 
 
 
-
-
-
-
-```{r datawrangle_graph3, warning= FALSE, message=FALSE}
+```{r graph3, warning= FALSE, message=FALSE}
 
 # SQL code imported into R
 
@@ -229,77 +215,6 @@ WHERE kind_id = 1
 AND mi.info_type_id = 107 #this gives us gross revenue
 AND t.title IN ('Beauty and the Beast', 'Cinderella')
 AND mi.id IN (2679219,2117948,2572174, 2055452);")
-
-```
-
-It is important to note that although the Cinderella remake was released before the Beauty and the Beast remake, the decision to remake Beauty and the Beast was not spurred on by the former’s performance at the box office. In fact Beauty and the Beast had already been in production since 2011 and finished filming on Aug. 21, 2015. 
-
-Additionally, the remake of Beauty and the Beast appealed to many viewers globally, and primarily in the countries of the United Kingdom, the United States, Brazil, Belgium, Philippines, China, India, and Australia. 
-
-```{r include=FALSE, warning= FALSE, message=FALSE}
-# Create dataset for world map with  global revenue of Beauty and  the Beast Remake
-global_beautyandthebeast <- db %>% 
-  dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
-FROM title t
-JOIN movie_info  mi
-ON t.id= mi.movie_id
-WHERE title IN ('Beauty and the Beast') AND info_type_id= 107 AND production_year= 2017 AND  mi.id IN 
-(2679219, 2679265,2679352, 2679353, 2679354, 2679355, 2679356, 2679357, 2679363, 2679364, 2679365);") %>%
-  collect()
-
-gross_revenue_wbb <- c(504, 90.47, 36.3, 6.63, 41.5, 85.76, 4.15, 20.38, 110.46, 7.2, 657.5)
-country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "Italy", 
-             "Japan", "Netherlands", "Philippines")
-
-# Create data table for map
-global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
-global_beautyandthebeast_graph <- cbind(global_beautyandthebeast_graph, country)
-```
-
-```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=5}
-# Create sf object of world  data in order to make world  map
-world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
-  sf::st_as_sf() %>%
-  sf::st_transform(4326) %>%
-  rename("country"= ID)
-
-# Merge world map data and beauty and the beast graph data for map
-bb_wm  <- right_join(global_beautyandthebeast_graph, world, by= "country")
-
-# Create world map
-bb_wm %>%
-  ggplot()+ 
-  geom_sf(aes(fill= gross_revenue_wbb))+
-  scale_fill_gradient(low= "pink", high= "purple")+
-  theme_map()+ 
-  labs(title = "Global Distribution of 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
-  theme(plot.title = element_text(family = "Century Gothic", size= 8), 
-        legend.title = element_text(family = "Century Gothic", size = 8), 
-        legend.text = element_text(family = "Century Gothic", size = 8))+ 
-    theme(plot.background = element_rect(fill = "#E9DBF4", color = NA),
-          panel.background = element_rect(fill = "#E9DBF4", color = NA),
-          panel.grid.major = element_line("#E9DBF4"))
-```
-
-Despite the fact that the country's population is one third of the United States, Philippines was the country  where Beauty and the Beast grossed the highest[^1]. 
-
-```{r fig.width=5,  fig.height=8}
-# Create map for Philippines
-
-bb_wm %>%
-filter(country== "Philippines") %>%
-   ggplot(size= 2)+ 
-  geom_sf(aes(fill= gross_revenue_wbb))+
-  scale_fill_gradient(low= "purple", high= "purple")+ 
-  theme_map()+
-  labs(title = "Philippines 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
-  theme(plot.title = element_text(family = "Century Gothic", size= 14), 
-        legend.title = element_text(family = "Century Gothic", size = 8), 
-        legend.text = element_text(family = "Century Gothic", size = 8))+ 
-    theme(plot.background = element_rect(fill = "#E9DBF4"), 
-          panel.grid.major = element_line("#E9DBF4"))
-```
-```{r graph3, warning= FALSE, message=FALSE}
 
 # Create dataframe
 gross_revenue <- gross_revenue %>%
@@ -340,13 +255,106 @@ graph2 <- casestudy_1 %>%
 graph2 
 ```
 
-**Unlike the original movies, a significant portion of the marketing for these two remakes relied on the “star power” of the cast. The original Cinderella, released in 1950, featured Ilene Woods in the role of *Cinderella*. Prior to her voice-acting role, Woods was engaged primarily in radio series, and it was her voice that caught the attention of Walt Disney himself. Her only other movie experience was an appearance in On Stage Everybody (1945). Therefore, Cinderella was a new experience and a catalyst for Woods’s increased exposure. The case was similar for Paige O’Hara, the voice actress who played Belle in the original *Beauty and the Beast* (1991). Belle was in fact O’Hara’s very first role and launched her career. Since the release of the movie, she has mainly continued to serve as a voice actress for Belle in the character’s appearances in TV series, shorts, and other movies. We can see, then, that for the originals, it was the movies that largely shaped the careers of the cast and not the cast that factored in the success of the movies. 
-	The opposite can be said for the remakes. *Cinderella* (2015)’s Lily James was already enjoying a prosperous acting career when she was cast as the lead, mostly owing to her role in hit TV show Downton Abbey, among other roles. As for Belle, Emma Watson is hardly in need of an introduction. A star from childhood as a result of her role as Hermione in the Harry Potter franchise, Watson’s role as Belle was a major selling point for the movie. 
-	The actresses’ careers made comparing the remakes to James’s and Watson’s other movies all the more interesting. For both actresses, the remakes grossed higher than any other movie in which they appeared. Most surprising is Emma Watson, for whom *Beauty and the Beast* grossed higher than any Harry Potter movie.** 
+```{r datawrangle_graph3, warning= FALSE, message=FALSE}
+
+# SQL code imported into R
+
+# Query to get gross revenues for our two case studies
+
+gross_revenue <- db %>% dbGetQuery("
+SELECT mi.id AS identity, info, title, production_year
+FROM movie_info mi
+JOIN title t
+ON t.id = mi.movie_id
+WHERE kind_id = 1
+AND mi.info_type_id = 107 #this gives us gross revenue
+AND t.title IN ('Beauty and the Beast', 'Cinderella')
+AND mi.id IN (2679219,2117948,2572174, 2055452);")
+
+```
+
+**It is important to note that although the *Cinderella* remake was released before the *Beauty and the Beast* remake, the decision to remake *Beauty and the Beast* was not spurred on by the former’s performance at the box office. In fact, *Beauty and the Beast* had already been in production since 2011 and finished filming on Aug. 21, 2015 [^2].**
+
+**Additionally, the remake of *Beauty and the Beast* appealed to many viewers globally, and primarily in the countries of the United Kingdom, the United States, Brazil, Belgium, Philippines, China, India, and Australia.** 
+
+```{r include=FALSE, warning= FALSE, message=FALSE}
+# Create dataset for world map with  global revenue of Beauty and  the Beast Remake
+global_beautyandthebeast <- db %>% 
+  dbGetQuery("SELECT t.id ID_TITLE, t.title, t.production_year, mi.id, mi.movie_id, mi.info_type_id, mi.info
+FROM title t
+JOIN movie_info  mi
+ON t.id= mi.movie_id
+WHERE title IN ('Beauty and the Beast') AND info_type_id= 107 AND production_year= 2017 AND  mi.id IN 
+(2679219, 2679265,2679352, 2679353, 2679354, 2679355, 2679356, 2679357, 2679363, 2679364, 2679365);") %>%
+  collect()
+
+gross_revenue_wbb <- c(504, 90.47, 36.3, 6.63, 41.5, 85.76, 4.15, 20.38, 110.46, 7.2, 657.5)
+country <- c("USA", "UK", "Australia", "Belgium", "Brazil", "China", "India", "Italy", 
+             "Japan", "Netherlands", "Philippines")
+
+# Create data table for map
+global_beautyandthebeast_graph <- cbind(gross_revenue_wbb, global_beautyandthebeast)
+global_beautyandthebeast_graph <- cbind(global_beautyandthebeast_graph, country)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, fig.width=5, }
+# Create sf object of world  data in order to make world  map
+world <- maps::map("world", fill= TRUE, plot = FALSE) %>%
+  sf::st_as_sf() %>%
+  sf::st_transform(4326) %>%
+  rename("country"= ID)
+
+# Merge world map data and beauty and the beast graph data for map
+bb_wm  <- right_join(global_beautyandthebeast_graph, world, by= "country")
+
+# Create world map
+bb_wm %>%
+  ggplot()+ 
+  geom_sf(aes(fill= gross_revenue_wbb), shape = 3, size = 0.05)+
+  scale_fill_gradient(low= "pink", high= "purple")+
+  theme_map()+ 
+  labs(title = "Global Distribution of 2017 Beauty and the Beast Gross Revenue", fill= "Gross Revenue (in Millions of $)")+
+  theme(plot.title = element_text(family = "Century Gothic", size= 8), 
+        legend.title = element_text(family = "Century Gothic", size = 8), 
+        legend.text = element_text(family = "Century Gothic", size = 8))+ 
+    theme(plot.background = element_rect(fill = "#E9DBF4", color = NA),
+          panel.background = element_rect(fill = "#E9DBF4", color = NA),
+          panel.grid.major = element_line("#E9DBF4"))
+```
+
+
+
+```{r fig.width=8, fig.height=8}
+# Create map for Philippines
+
+bb_wm %>%
+filter(country== "Philippines") %>%
+   ggplot(size= 2)+ 
+  geom_sf(aes(fill= gross_revenue_wbb))+
+  scale_fill_gradient(low = "purple", high = "purple")+ 
+  theme_map()+
+  labs(title = "Philippines 2017 Beauty and the Beast Gross Revenue")+
+  theme(plot.title = element_text(family = "Century Gothic", size= 12), 
+        legend.title = element_text(family = "Century Gothic", size = 8), 
+        legend.text = element_text(family = "Century Gothic", size = 8))+ 
+    theme(plot.background = element_rect(fill = "#E9DBF4"), 
+          panel.grid.major = element_line("#E9DBF4"), 
+          legend.position = "none") 
+```
+
+**Despite the fact that the country's population is one third of the United States, Philippines was the country  where *Beauty and the Beast* grossed the highest amount of $647.5 million[^3]. This indicates that Disney made a lot of global revenue off of the remakes! What was so special about these remakes then? Star power might be able to explain this trend.**
+
+**Unlike the original movies, a significant portion of the marketing for these two remakes relied on the 'star power' of the cast. The original *Cinderella*, released in 1950, featured Ilene Woods in the role of *Cinderella*. Prior to her voice-acting role, Woods was engaged primarily in radio series, and it was her voice that caught the attention of Walt Disney himself. Her only other movie experience was an appearance in On Stage Everybody (1945). Therefore, Cinderella was a new experience and a catalyst for Woods’s increased exposure [^4].** 
+
+**The case was similar for Paige O’Hara, the voice actress who played Belle in the original *Beauty and the Beast* (1991). Belle was in fact O’Hara’s very first role and launched her career. Since the release of the movie, she has mainly continued to serve as a voice actress for Belle in the character’s appearances in TV series, shorts, and other movies [^5]. We can see, then, that for the originals, it was the movies that largely shaped the careers of the cast and not the cast that factored in the success of the movies.**
+
+**The opposite can be said for the remakes. *Cinderella* (2015)’s Lily James was already enjoying a prosperous acting career when she was cast as the lead, mostly owing to her role in hit TV show Downton Abbey, among other roles. As for Belle, Emma Watson is hardly in need of an introduction. A star from childhood as a result of her role as Hermione in the Harry Potter franchise, Watson’s role as Belle was a major selling point for the movie [^6].** 
+	
+**The actresses’ careers made comparing the remakes to James’s and Watson’s other movies all the more interesting. For both actresses, the remakes grossed higher than any other movie in which they appeared. Most surprising is Emma Watson, for whom *Beauty and the Beast* grossed higher than any Harry Potter movie.** 
 
 
 ```{r warning= FALSE, message=FALSE}
-# Retrieve SQL query for Emma Watson movies
+# Retrieve SQL query for Emma Watson movies using indexing
 emmawatson <- db %>% 
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
 FROM cast_info ci
@@ -409,12 +417,12 @@ emmaplot <- emmawatson %>%
 emmaplot
 ``` 
 
-**From its production up until 2017, *Beauty and the Beast* grossed $50,4014,165. The highest grossing Harry Potter movie, Harry Potter and the Deathly Hallows, stops short at $381,011,219. Considering the scale of the Harry Potter franchise and the culture that has been built around the movies, it is interesting to note that-- in terms of Watson’s career--the *Beauty and the Beast* remake far surpasses them in the gross revenue that it has earned.** 
+**From its production up until 2017, *Beauty and the Beast* grossed $50,4014,165. The highest grossing *Harry Potter* movie, *Harry Potter and the Deathly Hallows*, stops short at $381,011,219. Considering the scale of the *Harry Potter* franchise and the culture that has been built around the movies, it is interesting to note that-- in terms of Watson’s career--the *Beauty and the Beast* remake far surpasses them in the gross revenue that it has earned.** 
 
-The results are similar for Lily James, albeit a little less surprising.
+**The results are similar for Lily James, albeit a little less surprising.**
 
 ```{r warning= FALSE, message=FALSE}
-# Retrieve SQL query for Lily James movies
+# Retrieve SQL query for Lily James movies using indexing
 
 lilyjames <- db %>%
   dbGetQuery("SELECT ci.person_id, n.name, ci.movie_id, t.title, mi.info, t.production_year
@@ -485,14 +493,13 @@ lilyplot
 ``` 
 
 
-**The highest amount of gross revenue accumulated by *Cinderella* was $201,151,353. Movies in which James starred prior only grossed 13,650,738 - Burnt (2015) - and 83,670,083 - Wrath of the Titans (2012). The second highest grossing movie in James’s portfolio is Baby Driver (2017) at 101,689,495. It is quite possible to conclude, then, that *Cinderella* was a catalyst for James’s movie career similarly to the way it was for Woods. However, this analysis is limited in that it ignores James’ TV acting career, which possibly explains the trend shown. 
 
-Overall, the star power associated with these two remakes may explain the success in comparison to other movies on the market. On the level of the actors themselves, other factors contribute to the success of the movies as compared to their other works. It is interesting to note that these two movies are the only remakes done by these actors, with other movies being original productions. It is possible that audiences were not only looking for plot lines and entertainment when they headed to theatres, but also a chance to revisit timeless classics. Whatever the case, one fact is clear: Disney’s princess stories are tales that are never too old for Disney fans all around the world.**
-
+**The highest amount of gross revenue accumulated by *Cinderella* was $201,151,353. Movies in which James starred prior only grossed 13,650,738 - *Burnt* (2015) - and 83,670,083 - *Wrath of the Titans* (2012). The second highest grossing movie in James’s portfolio is *Baby Driver* (2017) at 101,689,495. It is quite possible to conclude, then, that *Cinderella* was a catalyst for James’s movie career similarly to the way it was for Woods. However, this analysis is limited in that it ignores James’ TV acting career, which possibly explains the trend shown.** 
 
 
+**Overall, the star power associated with these two remakes may explain the success in comparison to other movies on the market. On the level of the actors themselves, other factors contribute to the success of the movies as compared to their other works. It is interesting to note that these two movies are the only remakes done by these actors, with other movies being original productions.** 
 
-
+**It is possible that the main reason audiences headed to theatres did not involve plot lines or how famous the actors were, rather they just wanted a chance to revisit timeless classics. Whatever the case, one fact is clear: Disney’s princess stories are tales that are never too old for Disney fans all around the world.**
 
 **The Smithies Behind This Article:**
 
@@ -501,7 +508,7 @@ Overall, the star power associated with these two remakes may explain the succes
 ![**Khulood Fahim**](http://oi67.tinypic.com/14u9c3c.jpg){width=25%}
 
 
-*Khulood Fahim is a senior studying comparative literature and government and will be moving to Washington D.C. after graduation to partake in a yearlong research fellowship at a think tank*
+*Khulood Fahim is a senior studying comparative literature and government and will be moving to Washington D.C. after graduation to partake in a year-long research fellowship at a think tank*
 
 
 ![**Zoya Alam**](http://oi64.tinypic.com/dnokna.jpg){width=25%}
@@ -515,9 +522,11 @@ Overall, the star power associated with these two remakes may explain the succes
 
 
 
-
-
-<\center> 
-
+**Footnotes**
 
 [^1]: https://github.com/khfahim/Miniproject4Disney 
+[^2]: https://www.imdb.com/title/tt2771200/locations
+[^3]: http://worldpopulationreview.com/countries/philippines-population/
+[^4]: https://www.imdb.com/name/nm0940627/bio?ref_=nm_ov_bio_sm
+[^5]: https://www.imdb.com/name/nm4141252/?ref_=tt_cl_t4
+[^6]: https://www.imdb.com/name/nm0914612/?ref_=tt_cl_t1
