@@ -62,6 +62,11 @@ wordcountaddin:::text_stats("MP4.Rmd")
 
 ```
 
+**Much to the joy of Disney fans young and old, the long-awaited release of a live-action remake of Disney's Aladdin is part of a continuing trend that the production company has been following.**
+
+
+
+
 ```{r  fig.show= 'hold', out.width= '50%',warning= FALSE, message=FALSE}
 # insert Aladdin  originaland remake  images and plot side by side
 p1 <- ggdraw()+ draw_image("https://usercontent1.hubstatic.com/8321508_f520.jpg")
@@ -73,36 +78,36 @@ p2<- ggdraw() + draw_image("https://upload.wikimedia.org/wikipedia/en/9/9a/Aladd
 p2
 ```
 
-**Aladdin 1992 (left), Aladdin 2019 (right)**
-
-
-![**Beauty and the Beast 1991**](https://media0.giphy.com/media/tGGqomlwZyI1i/giphy.gif?cid=790b76115cd3218565636b4b323a8ce7&rid=giphy.gif)
-
-
-![**Beauty and the Beast 2017**](https://media1.giphy.com/media/l0HlMbaqMnb09XZBu/giphy.gif?cid=790b76115cd3228a5631373541bfe332&rid=giphy.gif)
-
-
-
-![**Cinderella 1950**](https://media1.giphy.com/media/RLVHPJJv7jY1q/giphy.gif?cid=790b76115cd323c34a686e6a4d1674cc&rid=giphy.gif)
-
-![**Cinderella 2015**](https://media3.giphy.com/media/lW54ePLsorvgY/giphy.gif?cid=790b76115cd323da7344694473d83b93&rid=giphy.gif)
+Aladdin 1992 (left), Aladdin 2019 (right)
 
 
 
 
+
+
+
+**This began in 2015 and 2017,when remade versions of Cinderella and Beauty and the Beast were released. This article will analyze these two movies in an effort to understand what has prompted Disney to remake some of its ‘classic’ films.** 
+
+![Beauty and the Beast 1991](https://media0.giphy.com/media/tGGqomlwZyI1i/giphy.gif?cid=790b76115cd3218565636b4b323a8ce7&rid=giphy.gif)
+
+
+![Beauty and the Beast 2017](https://media1.giphy.com/media/l0HlMbaqMnb09XZBu/giphy.gif?cid=790b76115cd3228a5631373541bfe332&rid=giphy.gif)
+
+
+
+![Cinderella 1950](https://media1.giphy.com/media/RLVHPJJv7jY1q/giphy.gif?cid=790b76115cd323c34a686e6a4d1674cc&rid=giphy.gif)
+
+![Cinderella 2015](https://media3.giphy.com/media/lW54ePLsorvgY/giphy.gif?cid=790b76115cd323da7344694473d83b93&rid=giphy.gif)
+
+
+
+**When looking at the market of the ‘original’ disney princesses, we notice that Cinderella was one of the oldest movies produced by the company and Beauty and the Beast one of  the highest grossing movies. Therefore, these are two potential reasons for why Disney detected potential for the success of their remakes and decided to start with them in releasing remakes.**
 
 ![](http://clipart-library.com/img1/833428.png)
 
 
-![**Plumette 2017 versus 1991**](https://www.telegraph.co.uk/content/dam/films/2017/02/28/plumette_trans_NvBQzQNjv4BqNUHzxaamNmHDqK-YksWRz2o-yMLyYquKCawpyDOW254.jpg?imwidth=450)
-
-![**Belle's Mother**](https://i.ytimg.com/vi/aB7rG5P_Iu0/maxresdefault.jpg)
 
 
-![**Cinderella's Mother**](https://i.pinimg.com/originals/2b/74/30/2b7430c58312a4fe35f182218488250c.jpg)
-
-
-![**Cinderella's Stepmother**](https://www.gannett-cdn.com/-mm-/7d2ec2487b9786f952e112ba1035ebaf4b4fefca/c=555-136-2010-1230/local/-/media/2015/08/29/USATODAY/USATODAY/635764584061885937-Cindy2.png?width=540&height=405&fit=crop)
 
 
 
@@ -155,6 +160,8 @@ ggplot(disney_princesses_final, aes(x= production_year, y=as.numeric(as.characte
 
 ```
 
+**However, it is also possible that Disney used these remakes as an opportunity to ‘revitalize’ these original princess stories and make them more inclusive and compatible with the current social climate. Even in its animated productions, Disney has been making this effort in recent years by bringing in ‘fresh faces’ to the disney princess crew with the introduction of Princess Tiana in the Princess and the Frog and Princess Merida in Brave.** 
+
 
 
 ```{r  fig.show= 'hold', out.width= '50%',warning= FALSE, message=FALSE}
@@ -168,7 +175,7 @@ p2<- ggdraw() + draw_image("http://clipart-library.com/data_images/192401.gif")
 p2
 ```
 
- *Princess Tiana (left) and  Merida (right)*
+Princess Tiana (left) and  Merida (right)
 
 
 
@@ -183,6 +190,23 @@ formattable(new_dp_table)
 
 ```
 
+
+**The remakes exhibit this clearly, with some characters originally played by (or drawn as) White individuals portrayed in the remakes by people of color. For example, contrary to the original movie, the 2017 Beauty and the Beast casts a woman of color to portray Plumette.** 
+
+![Plumette 2017 versus 1991](https://www.telegraph.co.uk/content/dam/films/2017/02/28/plumette_trans_NvBQzQNjv4BqNUHzxaamNmHDqK-YksWRz2o-yMLyYquKCawpyDOW254.jpg?imwidth=450)
+
+**Finally, the remake movies give more insight in to the stories of essential female characters. In both remakes of Cinderella and Beauty and the Beast, we learn about the stories of these princesses’ mothers and the reasons behind their deaths.** 
+
+
+![Belle's Mother](https://i.ytimg.com/vi/aB7rG5P_Iu0/maxresdefault.jpg)
+
+
+![Cinderella's Mother](https://i.pinimg.com/originals/2b/74/30/2b7430c58312a4fe35f182218488250c.jpg)
+
+
+**We also find out more about the stepmother in Cinderella,allowing the viewers to understand how, in many ways, Cinderella’s stepmother  is a ‘prisoner in her own home’.**
+
+![Cinderella's Stepmother](https://www.gannett-cdn.com/-mm-/7d2ec2487b9786f952e112ba1035ebaf4b4fefca/c=555-136-2010-1230/local/-/media/2015/08/29/USATODAY/USATODAY/635764584061885937-Cindy2.png?width=540&height=405&fit=crop)
 
 
 ```{r include=FALSE, warning= FALSE, message=FALSE}
