@@ -255,7 +255,7 @@ bb_wm %>%
 ```
 
 ```{r fig.width=5,  fig.height=8}
-##create map for Philippines
+# Create map for Philippines
 
 bb_wm %>%
 filter(country== "Philippines") %>%
@@ -278,7 +278,7 @@ filter(country== "Philippines") %>%
 
 # SQL code imported into R
 
-# Query to get gross revenues for our two case studies
+# Query to get gross revenues for our two case studies, using indexing
 
 gross_revenue <- db %>% dbGetQuery("
 SELECT mi.id AS identity, info, title, production_year
@@ -334,7 +334,6 @@ graph2 <- casestudy_1 %>%
 
 graph2 
 ```
-
 
 
 
@@ -475,12 +474,12 @@ lilyplot
 **The Smithies Behind This Article:**
 
 
-
+<div style = "float:left;position: relative; top: -8-px;">
 ![**Khulood Fahim**](http://oi67.tinypic.com/14u9c3c.jpg){width=50%}
 
 
 *Khulood Fahim is a senior studying comparative literature and government and will be moving to Washington D.C. after graduation to partake in a yearlong research fellowship at a think tank*
-
+</div>
 
 ![**Zoya Alam**](http://oi64.tinypic.com/dnokna.jpg){width=50%}
 
